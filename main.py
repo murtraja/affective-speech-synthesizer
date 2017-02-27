@@ -3,6 +3,8 @@
 from Tkinter import *
 from tkFileDialog import askopenfilename
 import emossifier
+import get_voice as gv
+import play_voice as pv
 
 top = Tk()
 # Code to add widgets will go here...
@@ -49,6 +51,7 @@ def on_click_speak():
 	'''
 	text_file.delete("1.0", "end")
 	text_file.insert("1.0", classified_sentences+"\n\n"+"All "+str(no_of_sentences)+" sentences processed successfully!")
+
 
 def on_change_entry_file_path():
 	pass
