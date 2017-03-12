@@ -52,6 +52,18 @@ def on_click_speak():
 	text_file.delete("1.0", "end")
 	text_file.insert("1.0", classified_sentences+"\n\n"+"All "+str(no_of_sentences)+" sentences processed successfully!")
 
+	'''
+	so now we have the sentences emossifier.sentences and emotions emossifier.emotions
+	we pass it to the get_voice module
+	'''
+	
+	gv.start_audio_file_generation(emossifier.sentences, emossifer.emotions)
+	'''
+	this is a blocking call, try to make it non blocking, pass a callback?
+	'''
+	
+	pv.start_playing()
+
 
 def on_change_entry_file_path():
 	pass
