@@ -23,6 +23,7 @@ OUTPUT_SENTENCE_FILE_PREFIX = 'output/output_'
 emotion_voice_map = {
     'neutral' : 'cmu-slt-hsmm'
 }
+#pip install requests
 import requests, threading, wave, os.path
 
 def get_voice_name(emotion):
