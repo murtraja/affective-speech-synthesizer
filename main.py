@@ -57,7 +57,7 @@ def on_click_speak():
 	we pass it to the get_voice module
 	'''
 	
-	gv.start_audio_file_generation(emossifier.sentences, emossifer.emotions)
+	gv.start_audio_file_generation(emossifier.sentences, emossifier.emotions)
 	'''
 	this is a blocking call, try to make it non blocking, pass a callback?
 	'''

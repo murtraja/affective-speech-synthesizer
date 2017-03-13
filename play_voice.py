@@ -3,7 +3,7 @@ import wave
 import threading
 play_audio = True
 CHUNK = 1024
-FILENAME = 'output.wav'
+FILENAME = 'output/output.wav'
 def play():
     
     wf = wave.open(FILENAME, 'rb')

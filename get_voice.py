@@ -1,47 +1,54 @@
-# import requests
-# filename = "output.wav"
+from xml.etree.ElementTree import Element, SubElement, Comment, tostring
+import requests, threading, wave, os.path, os, sys
 
-# def write_wave(text, voice = None):
-#     payload = {
-#     "INPUT_TYPE":"TEXT", 
-#     "INPUT_TEXT":text,
-#     "OUTPUT_TYPE": "AUDIO",
-#     "AUDIO":"WAVE_FILE",
-#     "LOCALE":"en_US"
-#     }
-#     if voice:
-#         payload['VOICE'] = voice
-#     r = requests.get('http://localhost:59125/process', params = payload)
-#     with open(filename, 'wb') as fd:
-#         fd.write(r.content)
-#     return len(r.content)
 SERVER_ADDRESS = "http://localhost"
 SERVER_PORT = "59125"
 SERVER_URL = SERVER_ADDRESS+":"+SERVER_PORT+"/process"
+
 OUTPUT_FILE = "output/output.wav"
 OUTPUT_SENTENCE_FILE_PREFIX = 'output/output_'
-emotion_voice_map = {
-    'neutral' : 'cmu-slt-hsmm'
-}
-import requests, threading, wave, os.path
 
-def get_voice_name(emotion):
-    if emotion not in emotion_voice_map:
-        emotion = 'neutral'
-    emotion = emotion_voice_map[emotion]
-    return emotion
+EMOTIONS = ['happiness', 'sadness', 'anger', 'fear', 'disgust', 'surprise', 'neutral']
+
+def get_param_input_text(sentence, emotion):
+    if emotion not in EMOTIONS:
+        print "FATAL ERROR! cannot synthesize voice for this emotion"
+        print "received:", emotion
+        print "expected:", "/".join(EMOTIONS)
+        sys.exit()
+
+    node_emotionml = Element('emotionml')
+    node_emotionml.set("version", "1.0")
+    node_emotionml.set("xmlns", "http://www.w3.org/2009/10/emotionml")
+    node_emotionml.set("category-set", "http://www.w3.org/TR/emotion-voc/xml#big6")
+
+    if emotion != 'neutral':
+
+        node_emotion = SubElement(node_emotionml, 'emotion')
+        node_emotion.text = sentence
+
+        node_category = SubElement(node_emotion, 'category')
+        node_category.set("name", emotion)
+    else:
+        node_emotionml.text = sentence
+
+    return str(tostring(node_emotionml))
 
 def get_payload(sentence, emotion):
     payload = {
-    "INPUT_TYPE":"TEXT", 
-    "INPUT_TEXT":sentence,
+    "INPUT_TYPE":"EMOTIONML", 
     "OUTPUT_TYPE": "AUDIO",
     "AUDIO":"WAVE_FILE",
     "LOCALE":"en_US"
     }
 
-    voice_name = get_voice_name(emotion)
-    payload['VOICE'] = voice_name
+    param_input_text = get_param_input_text(sentence, emotion)
+
+    payload['INPUT_TEXT'] = param_input_text
+    '''
+    input_type will be now emotionml
+    and input_text will be xml representation
+    '''
     return payload
 
 def get_wav_from_server(payload):
@@ -49,7 +56,8 @@ def get_wav_from_server(payload):
     status_code = response.status_code
     print "status_code = "+str(status_code)
     if response.status_code != 200:
-        print "BAD REQUEST given by payload"+str(payload)
+        print "BAD REQUEST given by url "+repr(response.url)
+        print response.text
         return 0
     content = response.content # this is in binary format
     return content
@@ -108,6 +116,7 @@ def wait_for_all_threads_to_join(thread_list):
 def construct_final_wav_file(sentence_files):
     data= []
     for file_name in sentence_files:
+        # print 'filename:',file_name
         wav_file = wave.open(file_name, 'rb')
         data.append( [wav_file.getparams(), wav_file.readframes(wav_file.getnframes())] )
         wav_file.close()
@@ -125,3 +134,6 @@ def start_audio_file_generation(sentences, emotions):
     wait_for_all_threads_to_join(thread_list)
     #print sentence_files, "<- sentence files"
     construct_final_wav_file(sentence_files)
+    # now delete the individual sentence files here
+    for sentence_file_name in sentence_files:
+        os.remove(sentence_file_name)
