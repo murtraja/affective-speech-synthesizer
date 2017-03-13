@@ -2,8 +2,7 @@ from xml.etree.ElementTree import Element, SubElement, Comment, tostring
 import requests, threading, wave, os.path, os, sys
 
 SERVER_ADDRESS = "http://localhost"
-SERVER_PORT = "59125"
-SERVER_URL = SERVER_ADDRESS+":"+SERVER_PORT+"/process"
+SERVER_PORT = [59125, 59126, 59127, 59128]
 
 OUTPUT_FILE = "output/output.wav"
 OUTPUT_SENTENCE_FILE_PREFIX = 'output/output_'
@@ -51,8 +50,13 @@ def get_payload(sentence, emotion):
     '''
     return payload
 
-def get_wav_from_server(payload):
-    response = requests.get(SERVER_URL, params = payload, timeout=5)
+def get_server_url(index):
+    server_port = str(SERVER_PORT[index%(len(SERVER_PORT))])
+    server_url = SERVER_ADDRESS+":"+server_port+"/process"
+    return server_url
+
+def get_wav_from_server(payload, index):
+    response = requests.get(get_server_url(index), params = payload, timeout=5)
     status_code = response.status_code
     print "status_code = "+str(status_code)
     if response.status_code != 200:
@@ -83,7 +87,7 @@ def get_wav_file(sentence, emotion, sentence_files, index):
     payload = get_payload(sentence, emotion)
     print "Thread "+str(index)+" fetched the payload"
 
-    wav_object = get_wav_from_server(payload)
+    wav_object = get_wav_from_server(payload, index)
     print "Thread "+str(index)+" fetched the wav_object of length "+str(len(wav_object))
 
     
@@ -99,6 +103,9 @@ def start_threads(sentences, emotions, sentence_files):
     thread_list = []
 
     for index in range(len(sentences)):
+        if index>=4:
+            previous_thread = thread_list[:-4]
+            previous_thread.join()
         thread = start_thread(sentences[index], emotions[index], sentence_files, index)
         print 'now starting thread', index
         thread.start()
