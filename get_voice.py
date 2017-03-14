@@ -1,5 +1,5 @@
 from xml.etree.ElementTree import Element, SubElement, Comment, tostring
-import requests, threading, wave, os.path, os, sys
+import requests, threading, wave, os.path, os, sys, Queue, time
 
 SERVER_ADDRESS = "http://localhost"
 SERVER_PORT = [59125, 59126, 59127, 59128]
@@ -56,7 +56,7 @@ def get_server_url(index):
     return server_url
 
 def get_wav_from_server(payload, index):
-    response = requests.get(get_server_url(index), params = payload, timeout=5)
+    response = requests.get(get_server_url(index), params = payload, timeout=15)
     status_code = response.status_code
     print "status_code = "+str(status_code)
     if response.status_code != 200:
@@ -100,16 +100,15 @@ def start_thread(sentence, emotion, sentence_files, index):
     return thread
 
 def start_threads(sentences, emotions, sentence_files):
-    thread_list = []
-
+    thread_list = Queue.Queue(maxsize=0)
     for index in range(len(sentences)):
         if index>=4:
-            previous_thread = thread_list[:-4]
+            previous_thread = thread_list.get()
             previous_thread.join()
         thread = start_thread(sentences[index], emotions[index], sentence_files, index)
         print 'now starting thread', index
         thread.start()
-        thread_list.append(thread)
+        thread_list.put(thread)
         #thread.join()
     return thread_list
 
@@ -138,8 +137,10 @@ def construct_final_wav_file(sentence_files):
 def start_audio_file_generation(sentences, emotions):
     sentence_files = [0 for _ in sentences]
     thread_list = start_threads(sentences, emotions, sentence_files)
-    wait_for_all_threads_to_join(thread_list)
-    #print sentence_files, "<- sentence files"
+    #wait_for_all_threads_to_join(thread_list)
+    #All files are not generated at the rate of
+    #their consumption by the construct_final_wav_file()
+    time.sleep(2)
     construct_final_wav_file(sentence_files)
     # now delete the individual sentence files here
     for sentence_file_name in sentence_files:
