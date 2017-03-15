@@ -8,8 +8,11 @@ OUTPUT_FILE = "output/output.wav"
 OUTPUT_SENTENCE_FILE_PREFIX = 'output/output_'
 
 EMOTIONS = ['happiness', 'sadness', 'anger', 'fear', 'disgust', 'surprise', 'neutral']
+emotions_from_data = ['joy', 'sadness', 'anger', 'fear', 'disgust', 'surprise', 'neutral']
+emotion_mapper = {emotions_from_data[i]:EMOTIONS[i] for i in range(len(EMOTIONS))}
 
 def get_param_input_text(sentence, emotion):
+    emotion = emotion_mapper[emotion]
     if emotion not in EMOTIONS:
         print "FATAL ERROR! cannot synthesize voice for this emotion"
         print "received:", emotion
