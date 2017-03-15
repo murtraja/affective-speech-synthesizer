@@ -7,9 +7,12 @@ SERVER_PORT = [59125, 59126, 59127, 59128]
 OUTPUT_FILE = "output/output.wav"
 OUTPUT_SENTENCE_FILE_PREFIX = 'output/output_'
 
-EMOTIONS = ['happiness', 'sadness', 'anger', 'fear', 'disgust', 'surprise', 'neutral']
+EMOTIONS = ['happiness', 'sadness', 'anger', 'fear', 'disgust', 'surprise', 'neutral']      # value
+emotions_from_data = ['joy', 'sadness', 'anger', 'fear', 'disgust', 'surprise', 'neutral']  # key
+emotion_mapper = {emotions_from_data[i]:EMOTIONS[i] for i in range(len(EMOTIONS))}
 
 def get_param_input_text(sentence, emotion):
+    emotion = emotion_mapper[emotion]
     if emotion not in EMOTIONS:
         print "FATAL ERROR! cannot synthesize voice for this emotion"
         print "received:", emotion
@@ -80,9 +83,9 @@ def write_wav_file(wav_object, sentence_file_name):
 
 def get_wav_file(sentence, emotion, sentence_files, index):
     sentence_file_name = get_sentence_file_name(index)
-    if os.path.isfile(sentence_file_name):
-        sentence_files[index] = sentence_file_name        
-        return
+    # if os.path.isfile(sentence_file_name):
+    #     sentence_files[index] = sentence_file_name        
+    #     return
 
     payload = get_payload(sentence, emotion)
     print "Thread "+str(index)+" fetched the payload"
@@ -144,4 +147,4 @@ def start_audio_file_generation(sentences, emotions):
     construct_final_wav_file(sentence_files)
     # now delete the individual sentence files here
     for sentence_file_name in sentence_files:
-        os.remove(sentence_file_name)
+       os.remove(sentence_file_name)
