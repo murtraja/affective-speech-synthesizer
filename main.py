@@ -10,7 +10,7 @@ from cStringIO import StringIO
 
 #Top level TKinter object
 top = Tk()
-
+top.title("Affective Speech Synthesizer")
 #global variables
 entry_file_path_text = StringVar()
 text_file = None
