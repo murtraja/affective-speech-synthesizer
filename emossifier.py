@@ -36,7 +36,7 @@ def get_emotions_from_file(filename):
 
 	features = vectorizer.transform(sentences)
 	print np.shape(features)
-	classifier = joblib.load('classifiers/tfidf_nb.pkl')
+	classifier = joblib.load('classifiers/tfidf_svm.pkl')
 
 	emotions = classifier.predict(features).tolist()
 	print type(emotions)
