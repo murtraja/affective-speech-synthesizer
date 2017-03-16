@@ -42,8 +42,9 @@ class GUI(QtGui.QWidget):
         #    FIRST COMPARTMENT
         self.btn_load = QtGui.QPushButton("load file")
         self.btn_load.clicked.connect(self.on_click_load_file)
-        self.ledit_file_name = QtGui.QLineEdit("some default text in the line edit")
+        self.ledit_file_name = QtGui.QLineEdit("Path of the file to be selected")
         self.ledit_file_name.setMinimumWidth(300)
+        self.ledit_file_name.setReadOnly(True)
         com1_layout = QtGui.QHBoxLayout()
         com1_layout.addWidget(self.ledit_file_name, 5)
         com1_layout.addWidget(self.btn_load, 1)
