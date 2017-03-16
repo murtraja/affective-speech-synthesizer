@@ -14,9 +14,10 @@ what i want to do is:
 
 sentences = None
 emotions = None
-def get_emotions_from_file(filename):
+def get_emotions_from_file(filename, want_neutral):
 	global emotions
 	global sentences
+	
 	with open(filename,"rb") as f:
 		content = f.readlines()
 		content = [x.strip("/n/t ") for x in content]
@@ -30,15 +31,21 @@ def get_emotions_from_file(filename):
 		# print "***************"
 		# for i in sentences:
 		# 	print i + "\n"
+	if not want_neutral:
+	  with open('vectorizer/vectorizer.pkl', 'rb') as fin:
+		  vectorizer = pickle.load(fin)
 
-	with open('vectorizer/vectorizer.pkl', 'rb') as fin:
-		vectorizer = pickle.load(fin)
+	  features = vectorizer.transform(sentences)
+	  print np.shape(features)
+	  classifier = joblib.load('classifiers/tfidf_svm.pkl')
 
-	features = vectorizer.transform(sentences)
-	print np.shape(features)
-	classifier = joblib.load('classifiers/tfidf_svm.pkl')
-
-	emotions = classifier.predict(features).tolist()
-	print type(emotions)
-	for i in range(len(sentences)):
-		print sentences[i] + ": " + emotions[i]
+	  emotions = classifier.predict(features).tolist()
+	  print type(emotions)
+	  for i in range(len(sentences)):
+		  print sentences[i] + ": " + emotions[i]
+		  
+	else:
+	  emotions = []
+	  for i in range(len(sentences)):
+	    emotions.append('neutral')
+	    print sentences[i] + ": " + emotions[i]
