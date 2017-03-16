@@ -50,7 +50,10 @@ class GUI(QtGui.QWidget):
         com1_layout.addWidget(self.btn_load, 1)
         self.main_layout.addLayout(com1_layout)
 
-        #    FOURTH COMPARTMENT        
+        #    FOURTH COMPARTMENT    
+        font = QtGui.QFont();
+        font.setPointSize(13);
+        font.setBold(True);    
         self.label_about_project = QtGui.QLabel('''
                   ABOUT THE PROJECT
                   
@@ -61,6 +64,7 @@ class GUI(QtGui.QWidget):
         the underlying emotions for the input text, but
         also it speaks it in that way!
         ''')
+        self.label_about_project.setFont(font)
         self.label_about_us = QtGui.QLabel('''
             THE TEAM
             
@@ -69,6 +73,7 @@ class GUI(QtGui.QWidget):
         - Prathamesh Dharangutte
         - Murtaza Raja
         ''')
+        self.label_about_us.setFont(font)
         self.com4_layout = QtGui.QHBoxLayout()
         self.com4_layout.addWidget(self.label_about_project, 3)
         self.com4_layout.addWidget(QtGui.QLabel(''))
@@ -78,11 +83,11 @@ class GUI(QtGui.QWidget):
         self.setLayout(self.main_layout)
         self.setWindowTitle("Affective Speech Synthesizer")
         self.setGeometry(600, 200, 100,100)
-        self.setFixedSize(600, 300)
+        self.setFixedSize(730, 300)
         self.show()
         
     def addSecondCompartment(self):
-        self.setFixedSize(600, 600)
+        self.setFixedSize(730, 600)
         self.com2_layout = QtGui.QVBoxLayout()
         self.tedit_file_contents = QtGui.QTextEdit()
         #self.tedit_file_contents.setMinimumHeight(300)
@@ -119,7 +124,7 @@ class GUI(QtGui.QWidget):
         
     
     def addThirdCompartment(self):
-        self.setFixedSize(600, 800)
+        self.setFixedSize(730, 800)
         self.com3_layout = QtGui.QVBoxLayout()
         self.mediaObject = Phonon.MediaObject()
         self.addActions()
@@ -231,7 +236,11 @@ class GUI(QtGui.QWidget):
         
         #Before inserting new text, delete old one
         print "here"
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        font.setBold(True)
         self.tedit_file_contents.clear()
+        self.tedit_file_contents.setFont(font)
         self.tedit_file_contents.append(classified_sentences+"\n\n"+"All "+str(no_of_sentences)+" sentences processed successfully!")
         
         #So now we have the sentences emossifier.sentences and emotions emossifier.emotions
@@ -253,6 +262,10 @@ class GUI(QtGui.QWidget):
         path_array = self.file_name.split("/")
         neededWord = str(path_array[len(path_array)-1])
         self.tedit_file_contents.clear()
+        font = QtGui.QFont()
+        font.setPointSize(15)
+        font.setBold(True)
+        self.tedit_file_contents.setFont(font)
         if neededWord.split(".")[1] == "pdf":
             self.ispdf = True
             data = textract.process(str(self.file_name), encoding='ascii')
