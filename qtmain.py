@@ -77,13 +77,14 @@ class GUI(QtGui.QWidget):
         self.setLayout(self.main_layout)
         self.setWindowTitle("Affective Speech Synthesizer")
         self.setGeometry(600, 500, 100,100)
-        #self.setFixedSize(600, 200)
+        self.setFixedSize(600, 300)
         self.show()
         
     def addSecondCompartment(self):
+        self.setFixedSize(600, 600)
         self.com2_layout = QtGui.QVBoxLayout()
         self.tedit_file_contents = QtGui.QTextEdit()
-        self.tedit_file_contents.setMinimumHeight(300)
+        #self.tedit_file_contents.setMinimumHeight(300)
         self.com2_layout.addWidget(self.tedit_file_contents)
         
         com2_sublayout = QtGui.QHBoxLayout()
@@ -117,6 +118,7 @@ class GUI(QtGui.QWidget):
         
     
     def addThirdCompartment(self):
+        self.setFixedSize(600, 800)
         self.com3_layout = QtGui.QVBoxLayout()
         self.mediaObject = Phonon.MediaObject()
         self.addActions()
