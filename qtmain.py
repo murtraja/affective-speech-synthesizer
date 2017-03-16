@@ -77,7 +77,7 @@ class GUI(QtGui.QWidget):
         
         self.setLayout(self.main_layout)
         self.setWindowTitle("Affective Speech Synthesizer")
-        self.setGeometry(600, 500, 100,100)
+        self.setGeometry(600, 200, 100,100)
         self.setFixedSize(600, 300)
         self.show()
         
