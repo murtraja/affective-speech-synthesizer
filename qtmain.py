@@ -23,7 +23,7 @@ class GUI(QtGui.QWidget):
     def initGUI(self):
         '''
         idea:
-        there are 5 compartments
+        there are 4 compartments
         1st - file path line edit and load file button
         2nd - the text edit widget AND two buttons - speak neutral and speak affective
         3rd - media player
@@ -33,9 +33,9 @@ class GUI(QtGui.QWidget):
         
         furthermore, the following shows the events and the corresponding widgets that they reveal
         
-        program start - compartment 1 and 5
-        load click - compartment 2 and 3
-        speak click - compartment 4
+        program start - compartment 1 and 4
+        load click - compartment 2
+        speak click - compartment 3
         '''
         self.main_layout = QtGui.QVBoxLayout()
         
@@ -83,15 +83,64 @@ class GUI(QtGui.QWidget):
         self.setLayout(self.main_layout)
         self.setWindowTitle("Affective Speech Synthesizer")
         self.setGeometry(600, 200, 100,100)
-        self.setFixedSize(730, 300)
+        #self.setFixedSize(730, 300)
         self.show()
-        
+
+    def makeSentenceEmotionCompartment(self):
+        '''
+        There is a main widget here which takes care of 
+        the whole sentence and emotion layout
+        call this widget_sentence_emotion
+
+        this widget uses QVBoxLayout (main_layout)which
+        contains another Widget - widget_sentence_emotion_pair
+
+        this widget uses the QHBoxLayout (sub_layout) which contains
+        two widgets one line edit and one QComboBox
+
+        '''
+
+        self.widget_sentence_emotion = QtGui.QScrollArea()
+        main_layout = QtGui.QVBoxLayout()
+
+        for sentence, emotion in zip(emossifier.sentences, emossifier.emotions):
+            widget_sentence_emotion_pair = QtGui.QWidget()
+            sub_layout = QtGui.QHBoxLayout()
+
+            ledit_sentence = QtGui.QLineEdit(sentence)
+            cb_emotion = QtGui.QComboBox()
+            cb_emotion.addItems(gv.emotions_from_data)
+            cb_emotion.setCurrentIndex(gv.emotions_from_data.index(emotion))
+            sub_layout.addWidget(ledit_sentence, 5)
+            sub_layout.addWidget(cb_emotion)
+
+            widget_sentence_emotion_pair.setLayout(sub_layout)
+
+            main_layout.addWidget(widget_sentence_emotion_pair)
+        subwidget_sentence_emotion = QtGui.QWidget()
+        subwidget_sentence_emotion.setLayout(main_layout)
+        self.widget_sentence_emotion.setWidget(subwidget_sentence_emotion)
+        self.widget_sentence_emotion.setWidgetResizable(True)
+        self.widget_sentence_emotion.setMinimumHeight(400)
+        # self.widget_sentence_emotion = subwidget_sentence_emotion
+
+
+
+
+
     def addSecondCompartment(self):
-        self.setFixedSize(730, 600)
+        #self.setFixedSize(730, 600)
+        if self.is_second_loaded:
+            # remove the second compartment here
+            self.main_layout.removeWidget(self.widget_second_compartment)
+            self.widget_second_compartment.close()
+        else:
+            self.is_second_loaded = True
+        self.widget_second_compartment = QtGui.QWidget()
         self.com2_layout = QtGui.QVBoxLayout()
-        self.tedit_file_contents = QtGui.QTextEdit()
-        #self.tedit_file_contents.setMinimumHeight(300)
-        self.com2_layout.addWidget(self.tedit_file_contents)
+
+        self.makeSentenceEmotionCompartment()
+        self.com2_layout.addWidget(self.widget_sentence_emotion)
         
         com2_sublayout = QtGui.QHBoxLayout()
         self.btn_speak_neutral = QtGui.QPushButton('Speak in Neutral Voice')
@@ -104,7 +153,9 @@ class GUI(QtGui.QWidget):
         com2_sublayout.addWidget(self.btn_speak_affective)
         
         self.com2_layout.addLayout(com2_sublayout)
-        self.main_layout.insertLayout(1, self.com2_layout)
+        self.com2_layout.setSpacing(3)
+        self.widget_second_compartment.setLayout(self.com2_layout)
+        self.main_layout.insertWidget(1, self.widget_second_compartment)
     
     def addActions(self):
         self.playAction = QtGui.QAction(
@@ -124,7 +175,7 @@ class GUI(QtGui.QWidget):
         
     
     def addThirdCompartment(self):
-        self.setFixedSize(730, 800)
+        #self.setFixedSize(730, 800)
         self.com3_layout = QtGui.QVBoxLayout()
         self.mediaObject = Phonon.MediaObject()
         self.addActions()
@@ -156,8 +207,8 @@ class GUI(QtGui.QWidget):
         
         self.volumeSlider = Phonon.VolumeSlider(self)
         self.volumeSlider.setAudioOutput(self.audioOutput)
-        self.volumeSlider.setSizePolicy(QtGui.QSizePolicy.Maximum,
-        QtGui.QSizePolicy.Maximum)
+        #self.volumeSlider.setSizePolicy(QtGui.QSizePolicy.Maximum,
+        #QtGui.QSizePolicy.Maximum)
 
         volumeLabel = QtGui.QLabel()
         volumeLabel.setPixmap(QtGui.QPixmap('images/volume.png'))
@@ -169,7 +220,7 @@ class GUI(QtGui.QWidget):
         playbackLayout.addWidget(self.volumeSlider)
         
         mainLayout = QtGui.QVBoxLayout()
-        mainLayout.minimumSize()
+        #mainLayout.minimumSize()
         mainLayout.addLayout(seekerLayout)
         mainLayout.addLayout(playbackLayout)
         
@@ -225,10 +276,7 @@ class GUI(QtGui.QWidget):
             self.addThirdCompartment()
 	    #check here if the file name is valid
         #now pass the file name to emossifer and get the output
-        if not self.ispdf:
-            emossifier.get_emotions_from_file(str(self.ledit_file_name.text()), want_neutral)
-        else:
-            emossifier.get_emotions_from_file("/tmp/pdf_temp.txt", want_neutral)
+        emossifier.get_emotions_from_content(self.tedit_file_contents.toPlainText(), want_neutral)
         no_of_sentences = len(emossifier.sentences)
         print "No. of sentences classified:", no_of_sentences
         classified_sentences = "\n\n".join([x + "\n"+y.upper() for (x,y) in zip(emossifier.sentences, emossifier.emotions)])
@@ -256,16 +304,9 @@ class GUI(QtGui.QWidget):
     def on_click_load_file(self):
         self.ledit_file_name.setText(QtGui.QFileDialog.getOpenFileName())
         self.file_name = self.ledit_file_name.text()
-        if not self.is_second_loaded:
-            self.addSecondCompartment()
-            self.is_second_loaded = True
         path_array = self.file_name.split("/")
         neededWord = str(path_array[len(path_array)-1])
-        self.tedit_file_contents.clear()
-        font = QtGui.QFont()
-        font.setPointSize(15)
-        font.setBold(True)
-        self.tedit_file_contents.setFont(font)
+        data = None
         if neededWord.split(".")[1] == "pdf":
             self.ispdf = True
             data = textract.process(str(self.file_name), encoding='ascii')
@@ -277,7 +318,12 @@ class GUI(QtGui.QWidget):
         else:
             self.ispdf = False
             fd = open(str(self.file_name))
-            self.tedit_file_contents.append(str(fd.read()))            
+            data = fd.read()
+
+        emossifier.get_emotions_from_content(data, False)
+
+        self.addSecondCompartment()
+
     
 def start():
     app = QtGui.QApplication(sys.argv)

@@ -14,23 +14,21 @@ what i want to do is:
 
 sentences = None
 emotions = None
-def get_emotions_from_file(filename, want_neutral):
+def get_emotions_from_content(content, want_neutral):
 	global emotions
 	global sentences
-	
-	with open(filename,"rb") as f:
-		content = f.readlines()
-		content = [x.strip("/n/t ") for x in content]
-		#print content
-		count = 0
-		para = ''
-		for i in content:
-			para = para + " " + str(i).strip("\n")
-		# print para
-		sentences = tokenize.sent_tokenize(para)
-		# print "***************"
-		# for i in sentences:
-		# 	print i + "\n"
+
+	content = content.split('\n')
+	#print content
+	count = 0
+	para = ''
+	for i in content:
+		para = para + " " + str(i).strip("\n")
+	# print para
+	sentences = tokenize.sent_tokenize(para)
+	# print "***************"
+	# for i in sentences:
+	# 	print i + "\n"
 	if not want_neutral:
 	  with open('vectorizer/vectorizer.pkl', 'rb') as fin:
 		  vectorizer = pickle.load(fin)
@@ -41,11 +39,9 @@ def get_emotions_from_file(filename, want_neutral):
 
 	  emotions = classifier.predict(features).tolist()
 	  print type(emotions)
-	  for i in range(len(sentences)):
-		  print sentences[i] + ": " + emotions[i]
 		  
 	else:
-	  emotions = []
-	  for i in range(len(sentences)):
-	    emotions.append('neutral')
-	    print sentences[i] + ": " + emotions[i]
+	  emotions = ['neutral' for _ in range(len(sentences))]
+
+	for i in range(len(sentences)):
+		  print sentences[i] + ": " + emotions[i]
