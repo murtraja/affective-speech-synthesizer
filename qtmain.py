@@ -40,7 +40,7 @@ class GUI(QtGui.QWidget):
         self.main_layout = QtGui.QVBoxLayout()
         
         #    FIRST COMPARTMENT
-        self.btn_load = QtGui.QPushButton("load file")
+        self.btn_load = QtGui.QPushButton("&Load File")
         self.btn_load.clicked.connect(self.on_click_load_file)
         self.ledit_file_name = QtGui.QLineEdit("Path of the file to be selected")
         self.ledit_file_name.setMinimumWidth(300)
@@ -69,7 +69,7 @@ class GUI(QtGui.QWidget):
             THE TEAM
             
         - Pranjal Bhor
-        - Vaibhav Chaudari
+        - Vaibhav Chaudhari
         - Prathamesh Dharangutte
         - Murtaza Raja
         ''')
