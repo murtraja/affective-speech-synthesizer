@@ -42,7 +42,7 @@ class GUI(QtGui.QWidget):
         #    FIRST COMPARTMENT
         self.btn_load = QtGui.QPushButton("&Load File")
         self.btn_load.clicked.connect(self.on_click_load_file)
-        self.ledit_file_name = QtGui.QLineEdit("Path of the file to be selected")
+        self.ledit_file_name = QtGui.QLineEdit(os.path.realpath('.')+"/happy.txt")
         self.ledit_file_name.setMinimumWidth(300)
         self.ledit_file_name.setReadOnly(True)
         com1_layout = QtGui.QHBoxLayout()
@@ -86,6 +86,7 @@ class GUI(QtGui.QWidget):
         #self.setFixedSize(730, 300)
         self.show()
 
+
     def makeSentenceEmotionCompartment(self):
         '''
         There is a main widget here which takes care of 
@@ -117,6 +118,7 @@ class GUI(QtGui.QWidget):
             widget_sentence_emotion_pair.setLayout(sub_layout)
 
             main_layout.addWidget(widget_sentence_emotion_pair)
+
         subwidget_sentence_emotion = QtGui.QWidget()
         subwidget_sentence_emotion.setLayout(main_layout)
         self.widget_sentence_emotion.setWidget(subwidget_sentence_emotion)
@@ -143,19 +145,38 @@ class GUI(QtGui.QWidget):
         self.com2_layout.addWidget(self.widget_sentence_emotion)
         
         com2_sublayout = QtGui.QHBoxLayout()
-        self.btn_speak_neutral = QtGui.QPushButton('Speak in Neutral Voice')
+        self.btn_speak_neutral = QtGui.QPushButton('Set Neutral emotions')
         self.btn_speak_neutral.clicked.connect(self.on_click_speak_neutral_handle)
         self.btn_speak_affective = QtGui.QPushButton('Speak in Affective Voice')
         self.btn_speak_affective.clicked.connect(self.on_click_speak_affective_handle)
-        dummy_label = QtGui.QLabel("")
+        self.btn_reset_default_emotion = QtGui.QPushButton("Load Default Emotions")
+        self.btn_reset_default_emotion.clicked.connect(self.on_click_reset_default_emotion_handle)
         com2_sublayout.addWidget(self.btn_speak_neutral)
-        com2_sublayout.addWidget(dummy_label)
+        com2_sublayout.addWidget(self.btn_reset_default_emotion)
         com2_sublayout.addWidget(self.btn_speak_affective)
         
         self.com2_layout.addLayout(com2_sublayout)
         self.com2_layout.setSpacing(3)
         self.widget_second_compartment.setLayout(self.com2_layout)
         self.main_layout.insertWidget(1, self.widget_second_compartment)
+        #self.printLenOfChildren(self.widget_sentence_emotion, [-1])
+        print self.widget_sentence_emotion.findChildren(QtGui.QComboBox)
+    
+    def printLenOfChildren(self, root_widget, l=[-1]):
+        print "called with", root_widget, "and", l
+        if root_widget is None or len(l)>4:
+            return
+        print root_widget, "-->", l
+        try:
+            children = root_widget.children()
+            size = len(children)
+            print "this widget has",size,"children"
+            for i in range(size):
+                self.printLenOfChildren(children[i], l+[i]) 
+        except:
+            e = sys.exc_info()
+            print "some error",l, root_widget,'with', e
+
     
     def addActions(self):
         self.playAction = QtGui.QAction(
@@ -230,6 +251,10 @@ class GUI(QtGui.QWidget):
         self.com3_layout.addWidget(widget, 0, QtCore.Qt.AlignCenter)
         self.main_layout.insertLayout(2, self.com3_layout)
     
+    def setEmotions(self, emotions):
+        for cb_emotion, emotion in zip(self.widget_sentence_emotion.findChildren(QtGui.QComboBox), emotions):
+            cb_emotion.setCurrentIndex(gv.emotions_from_data.index(emotion))
+
     def tick(self, time):
         displayTime = QtCore.QTime(0, (time / 60000) % 60, (time / 1000) % 60)
         self.timeLcd.display(displayTime.toString('mm:ss'))
@@ -264,8 +289,12 @@ class GUI(QtGui.QWidget):
         self.mediaObject.play()
     
     def on_click_speak_neutral_handle(self):
-        self.on_click_speak(True)
-        
+        self.setEmotions(['neutral' for _ in emossifier.emotions])
+        #self.on_click_speak(True)
+    
+    def on_click_reset_default_emotion_handle(self):
+        self.setEmotions(emossifier.emotions)
+
     def on_click_speak_affective_handle(self):
         self.on_click_speak(False)
     
@@ -302,7 +331,7 @@ class GUI(QtGui.QWidget):
     #On clicking the 'load file' button
     #display a file selection widget   
     def on_click_load_file(self):
-        self.ledit_file_name.setText(QtGui.QFileDialog.getOpenFileName())
+        #self.ledit_file_name.setText(QtGui.QFileDialog.getOpenFileName())
         self.file_name = self.ledit_file_name.text()
         path_array = self.file_name.split("/")
         neededWord = str(path_array[len(path_array)-1])
@@ -311,10 +340,6 @@ class GUI(QtGui.QWidget):
             self.ispdf = True
             data = textract.process(str(self.file_name), encoding='ascii')
             data = data[:-2]
-            self.tedit_file_contents.append(str(data))
-            temp_file = open("/tmp/pdf_temp.txt","w")
-            temp_file.write(data)
-            temp_file.close()
         else:
             self.ispdf = False
             fd = open(str(self.file_name))
