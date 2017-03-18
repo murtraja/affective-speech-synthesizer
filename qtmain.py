@@ -42,7 +42,8 @@ class GUI(QtGui.QWidget):
         #    FIRST COMPARTMENT
         self.btn_load = QtGui.QPushButton("&Load File")
         self.btn_load.clicked.connect(self.on_click_load_file)
-        self.ledit_file_name = QtGui.QLineEdit(os.path.realpath('.')+"/happy.txt")
+        #self.ledit_file_name = QtGui.QLineEdit(os.path.realpath('.')+"/happy.txt")
+        self.ledit_file_name = QtGui.QLineEdit("Click on Load File to classify the emotions from text or pdf files")
         self.ledit_file_name.setMinimumWidth(300)
         self.ledit_file_name.setReadOnly(True)
         com1_layout = QtGui.QHBoxLayout()
@@ -75,9 +76,9 @@ class GUI(QtGui.QWidget):
         ''')
         self.label_about_us.setFont(font)
         self.com4_layout = QtGui.QHBoxLayout()
-        self.com4_layout.addWidget(self.label_about_project, 3)
+        self.com4_layout.addWidget(self.label_about_project, 3, QtCore.Qt.AlignLeft)
         self.com4_layout.addWidget(QtGui.QLabel(''))
-        self.com4_layout.addWidget(self.label_about_us, 3)
+        self.com4_layout.addWidget(self.label_about_us, 3, QtCore.Qt.AlignRight)
         self.main_layout.addLayout(self.com4_layout)
         
         self.setLayout(self.main_layout)
@@ -123,7 +124,7 @@ class GUI(QtGui.QWidget):
         subwidget_sentence_emotion.setLayout(main_layout)
         self.widget_sentence_emotion.setWidget(subwidget_sentence_emotion)
         self.widget_sentence_emotion.setWidgetResizable(True)
-        self.widget_sentence_emotion.setMinimumHeight(400)
+        self.widget_sentence_emotion.setMinimumHeight(600)
         # self.widget_sentence_emotion = subwidget_sentence_emotion
 
 
@@ -145,11 +146,11 @@ class GUI(QtGui.QWidget):
         self.com2_layout.addWidget(self.widget_sentence_emotion)
         
         com2_sublayout = QtGui.QHBoxLayout()
-        self.btn_speak_neutral = QtGui.QPushButton('Set Neutral emotions')
+        self.btn_speak_neutral = QtGui.QPushButton('Set &Neutral Emotions')
         self.btn_speak_neutral.clicked.connect(self.on_click_speak_neutral_handle)
-        self.btn_speak_affective = QtGui.QPushButton('Speak in Affective Voice')
+        self.btn_speak_affective = QtGui.QPushButton('&Speak')
         self.btn_speak_affective.clicked.connect(self.on_click_speak_affective_handle)
-        self.btn_reset_default_emotion = QtGui.QPushButton("Load Default Emotions")
+        self.btn_reset_default_emotion = QtGui.QPushButton("Load &Default Emotions")
         self.btn_reset_default_emotion.clicked.connect(self.on_click_reset_default_emotion_handle)
         com2_sublayout.addWidget(self.btn_speak_neutral)
         com2_sublayout.addWidget(self.btn_reset_default_emotion)
@@ -160,7 +161,7 @@ class GUI(QtGui.QWidget):
         self.widget_second_compartment.setLayout(self.com2_layout)
         self.main_layout.insertWidget(1, self.widget_second_compartment)
         #self.printLenOfChildren(self.widget_sentence_emotion, [-1])
-        print self.widget_sentence_emotion.findChildren(QtGui.QComboBox)
+#         print self.widget_sentence_emotion.findChildren(QtGui.QComboBox)
     
     def printLenOfChildren(self, root_widget, l=[-1]):
         print "called with", root_widget, "and", l
@@ -196,6 +197,9 @@ class GUI(QtGui.QWidget):
         
     
     def addThirdCompartment(self):
+        if self.is_third_loaded:
+            return
+        self.is_third_loaded = True
         #self.setFixedSize(730, 800)
         self.com3_layout = QtGui.QVBoxLayout()
         self.mediaObject = Phonon.MediaObject()
@@ -254,6 +258,18 @@ class GUI(QtGui.QWidget):
     def setEmotions(self, emotions):
         for cb_emotion, emotion in zip(self.widget_sentence_emotion.findChildren(QtGui.QComboBox), emotions):
             cb_emotion.setCurrentIndex(gv.emotions_from_data.index(emotion))
+            
+    def getEmotionsFromGUI(self):
+        emotions = []
+        for cb_emotion in self.widget_sentence_emotion.findChildren(QtGui.QComboBox):
+            emotions.append(str(cb_emotion.currentText()))
+        return emotions
+    
+    def getSentencesFromGUI(self):
+        sentences = []
+        for ledit_sentence in self.widget_sentence_emotion.findChildren(QtGui.QLineEdit):
+            sentences.append(str(ledit_sentence.text()))
+        return sentences
 
     def tick(self, time):
         displayTime = QtCore.QTime(0, (time / 60000) % 60, (time / 1000) % 60)
@@ -296,33 +312,18 @@ class GUI(QtGui.QWidget):
         self.setEmotions(emossifier.emotions)
 
     def on_click_speak_affective_handle(self):
-        self.on_click_speak(False)
+        self.on_click_speak()
     
     #This function speaks the text with its emotions
-    def on_click_speak(self, want_neutral):
-        if not self.is_third_loaded:
-            self.is_third_loaded = True
-            self.addThirdCompartment()
-	    #check here if the file name is valid
-        #now pass the file name to emossifer and get the output
-        emossifier.get_emotions_from_content(self.tedit_file_contents.toPlainText(), want_neutral)
-        no_of_sentences = len(emossifier.sentences)
-        print "No. of sentences classified:", no_of_sentences
-        classified_sentences = "\n\n".join([x + "\n"+y.upper() for (x,y) in zip(emossifier.sentences, emossifier.emotions)])
-        print classified_sentences
+    def on_click_speak(self):
+        self.addThirdCompartment()
         
-        #Before inserting new text, delete old one
-        print "here"
-        font = QtGui.QFont()
-        font.setPointSize(15)
-        font.setBold(True)
-        self.tedit_file_contents.clear()
-        self.tedit_file_contents.setFont(font)
-        self.tedit_file_contents.append(classified_sentences+"\n\n"+"All "+str(no_of_sentences)+" sentences processed successfully!")
-        
+        sentences = self.getSentencesFromGUI()
+        emotions = self.getEmotionsFromGUI()
+        print "received the following from GUI", zip(sentences, emotions)
         #So now we have the sentences emossifier.sentences and emotions emossifier.emotions
         #we pass it to the get_voice module	
-        gv.start_audio_file_generation(emossifier.sentences, emossifier.emotions)
+        gv.start_audio_file_generation(sentences, emotions)
         time.sleep(1)
         #This is a blocking call, try to make it non blocking, pass a callback?
         #pv.start_playing()
@@ -331,7 +332,7 @@ class GUI(QtGui.QWidget):
     #On clicking the 'load file' button
     #display a file selection widget   
     def on_click_load_file(self):
-        #self.ledit_file_name.setText(QtGui.QFileDialog.getOpenFileName())
+        self.ledit_file_name.setText(QtGui.QFileDialog.getOpenFileName())
         self.file_name = self.ledit_file_name.text()
         path_array = self.file_name.split("/")
         neededWord = str(path_array[len(path_array)-1])
