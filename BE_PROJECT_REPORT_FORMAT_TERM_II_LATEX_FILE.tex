@@ -1059,7 +1059,7 @@ Input data is stored in plain English text files or PDF files. Internally there 
 		\label{LSTM}
 		\begin{algorithmic}[1]
 			\Procedure{get\_emotion\_from\_lstm}{sentence}
-			\State classifier $\leftarrow$ load\_naive\_classifier()
+			\State classifier $\leftarrow$ load\_lstm\_classifier()
 			\State emotion $\leftarrow$ classifier.classify(sentence)
 			\State return emotion
 			\EndProcedure
