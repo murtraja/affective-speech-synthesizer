@@ -1036,8 +1036,8 @@ Input data is stored in plain English text files or PDF files. Internally there 
 \label{NaiveBayes}
 \begin{algorithmic}[1]
 \Procedure{get\_emotion\_from\_naive}{sentence}
-\State classifier = load\_naive\_classifier()
-\State emotion = classifier.classify(sentence)
+\State classifier $\leftarrow$ load\_naive\_classifier()
+\State emotion $\leftarrow$ classifier.classify(sentence)
 \State return emotion
 \EndProcedure
 \end{algorithmic}
@@ -1052,10 +1052,10 @@ Input data is stored in plain English text files or PDF files. Internally there 
 \State linguistic\_specification = get\_linguistic\_specification(sentence)
 \State final\_hmm\_sequence = $\phi$
 \ForAll{representation $\in$ linguistic\_specification}
-\State hmm\_sequence = generate\_hmm(representation)
+\State hmm\_sequence $\leftarrow$ generate\_hmm(representation)
 \State final\_hmm\_sequence $\leftarrow$ final\_hmm\_sequence $\cup$ hmm\_sequence
 \EndFor
-\State voice\_output = generate\_voice\_from\_hmm(final\_hmm)
+\State voice\_output $\leftarrow$ generate\_voice\_from\_hmm(final\_hmm)
 \State return voice
 \EndProcedure
 \end{algorithmic}
