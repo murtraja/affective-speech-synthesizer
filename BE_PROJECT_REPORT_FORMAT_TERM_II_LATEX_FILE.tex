@@ -1042,6 +1042,24 @@ Input data is stored in plain English text files or PDF files. Internally there 
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
+
+\subsubsection{HMM Audio Synthesis}
+		 \begin{algorithm}
+\caption{HMM Audio Synthesis Algorithm}
+\label{HMMAudio}
+\begin{algorithmic}[1]
+\Procedure{HMM\_audio\_synthesis}{sentence}
+\State linguistic\_specification = get\_linguistic\_specification(sentence)
+\State final\_hmm\_sequence = $\phi$
+\ForAll{representation $\in$ linguistic\_specification}
+\State hmm\_sequence = generate\_hmm(representation)
+\State final\_hmm\_sequence $\leftarrow$ final\_hmm\_sequence $\cup$ hmm\_sequence
+\EndFor
+\State voice\_output = generate\_voice\_from\_hmm(final\_hmm)
+\State return voice
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
 	  
   \section{Verification and Validation for Acceptance}
   Many different sentences denoting various emotions like joy, sadness, surprise, angry and neutral were given to the system. The system predicted the emotions and the people who tested the system agreed on the satisfactory level of the output. The corresponding audio generated was also approved by the users who tested the system. This provided verification as well as validation for the project and it got acceptance.
