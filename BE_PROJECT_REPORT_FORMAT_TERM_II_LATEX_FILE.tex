@@ -1032,17 +1032,85 @@ Input data is stored in plain English text files or PDF files. Internally there 
 
 	\subsubsection{Naive Baye's Classification Algorithm}
 		 \begin{algorithm}
-\caption{Naive Baye's Classification Algorithm}
-\label{NaiveBayes}
-\begin{algorithmic}[1]
-\Procedure{get\_emotion\_from\_naive}{sentence}
-\State classifier = load\_naive\_classifier()
-\State emotion = classifier.classify(sentence)
-\State return emotion
-\EndProcedure
-\end{algorithmic}
-\end{algorithm}
-	  
+			\caption{Naive Baye's Classification Algorithm}
+			\label{NaiveBayes}
+			\begin{algorithmic}[1]
+				\Procedure{get\_emotion\_from\_naive}{sentence}
+				\State classifier = load\_naive\_classifier()
+				\State emotion = classifier.classify(sentence)
+				\State return emotion
+				\EndProcedure
+			\end{algorithmic}
+		\end{algorithm}
+	
+	\newpage
+	\subsubsection{Get emotion from LSTM}
+	\begin{algorithm}
+		\caption{Get emotion from LSTM}
+		\label{LSTM}
+		\begin{algorithmic}[1]
+			\Procedure{get\_emotion\_from\_lstm}{sentence}
+			\State classifier = load\_naive\_classifier()
+			\State emotion = classifier.classify(sentence)
+			\State return emotion
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
+	
+	\subsubsection{Get emotion from NLP module}
+	\begin{algorithm}
+		\caption{Get emotion from NLP module}
+		\label{NLP}
+		\begin{algorithmic}[1]
+			\Procedure{get\_emotion\_from\_nlp}{sentence}
+			\State split sentence on spaces and store in word\_list
+			\State word\_list = lemmatize(word\_list)
+			\State word\_dictionary = $\phi$
+			\For{each word in word\_list}
+				   \State word\_emotion = NRCclassifier(word)
+				   \State word\_dictionary\{word\} = word\_emotion
+			\EndFor
+			\State emotion\_dictionary = \{'neutral':0,'joy':0,'sadness':0,'surprise':0,'anger':0\}
+			\State dependency\_tree = StanfordParser(sentence)
+			\State get\_index = 0
+			\State Indices = $\phi$
+			\For {each word in word\_dictionary}
+				\State emotion\_dictionary\lbrack word\_dictionary[word]\rbrack += 20
+				\State get\_index = find\_max\_qualified\_word(dependency\_tree)
+				\For {$i$ = 0 and $i$<length(dependency\_tree)}
+					\If {dependency\_tree[$i$].description is 'amod' or 'advmod'}
+						\If {dependency\_tree[$i$].head = get\_index}
+							\If {dependency\_tree[$i$].form in strong\_qual\_words}
+								\State emotion\_dictionary\lbrack word\_dictionary[word]\rbrack += 100
+							\ElsIf {dependency\_tree[$i$].form in avg\_qual\_words}
+								\State emotion\_dictionary\lbrack word\_dictionary[word]\rbrack += 50
+							\EndIf
+						\EndIf
+					\EndIf
+				\EndFor
+				\State Indices = Indices $\bigcup$ get\_index
+			\EndFor
+			\State answer\_emotion = get\_max\_valued\_emotion(emotion\_dictionary)
+			\If {negation present in the sentence}
+				\If {the negation word qualifies an index in Indices}
+					\If {max\_emotion\_value $\>$ 20}
+						\State answer\_emotion = 'neutral'
+					\ElsIf {max\_emotion\_value == 20}
+						\If {answer\_emotion == 'joy'}
+							\State answer\_emotion = 'sadness'
+						\ElsIf {answer\_emotion == 'sadness'}
+							\State answer\_emotion = 'joy'
+						\Else
+							\State answer\_emotion = 'neutral'
+						\EndIf
+					\EndIf
+				\EndIf
+			\EndIf
+			\State return emotion
+			\EndProcedure
+		\end{algorithmic}
+	\end{algorithm}
+	
   \section{Verification and Validation for Acceptance}
   Many different sentences denoting various emotions like joy, sadness, surprise, angry and neutral were given to the system. The system predicted the emotions and the people who tested the system agreed on the satisfactory level of the output. The corresponding audio generated was also approved by the users who tested the system. This provided verification as well as validation for the project and it got acceptance.
   
