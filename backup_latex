@@ -1,0 +1,1302 @@
+%This is a very basic  BE PROJECT PRELIMINARY template.
+
+%############################################# 
+%#########Author :  PROJECT###########
+%#########COMPUTER ENGINEERING############
+
+
+\documentclass[oneside,a4paper,12pt]{book}
+%\usepackage{showframe}
+%\hoffset = 8.9436619718309859154929577464789pt
+%\voffset = 13.028169014084507042253521126761pt
+\usepackage{fancyhdr}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyfoot[CE]{Pune Institute of Computer Technology, Department of Computer Engineering 2016-17}
+  \fancyfoot[RE]{\thepage}
+}
+\pagestyle{fancy}
+\fancyhead{}
+\renewcommand{\headrulewidth}{0pt}
+\footskip = 0.625in
+\cfoot{}
+\rfoot{}
+
+\usepackage[]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,snakes,automata,backgrounds,petri}
+\usepackage{titlesec}
+\usepackage{tabularx}
+
+\usepackage[nottoc,notlot,notlof,numbib]{tocbibind}
+\usepackage[titletoc]{appendix}
+\usepackage{titletoc}
+\renewcommand{\appendixname}{Annexure}
+\renewcommand{\bibname}{References}
+
+\setcounter{secnumdepth}{5}
+
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{multirow}
+
+\usepackage[ruled,vlined]{algorithm2e}
+
+\begin{document}
+
+\setlength{\parindent}{0mm}
+\begin{center}
+{\bfseries SAVITRIBAI PHULE PUNE UNIVERSITY \\}
+ \vspace*{1\baselineskip}
+{\bfseries A  PROJECT REPORT ON \\}
+ \vspace*{2\baselineskip}
+{\bfseries \fontsize{16}{16} \selectfont  EXPRESSIVE ENGLISH TEXT-TO-SPEECH SYNTHESIS SYSTEM \\ \vspace*{2\baselineskip}}
+{\fontsize{12}{12} \selectfont SUBMITTED TOWARDS THE
+ \\PARTIAL FULFILLMENT OF THE REQUIREMENTS OF \\
+
+\vspace*{2\baselineskip}}
+{\bfseries \fontsize{14}{12} \selectfont \mbox{BACHELOR OF ENGINEERING (Computer
+Engineering)} \\
+\vspace*{1\baselineskip}} 
+{\bfseries \fontsize{14}{12} \selectfont BY \\ 
+\vspace*{1\baselineskip}} 
+Pranjal Bhor  \hspace{25 mm} Roll No: B120054399  \\
+Vaibhav Chaudhari \hspace{14 mm} Roll No: B120054254   \\
+Prathamesh Dharangutte \hspace{3 mm} Roll No: B120054267  \\
+Murtaza Raja \hspace{24 mm} Roll No: B120054367\\
+\vspace*{2\baselineskip}
+{\bfseries \fontsize{14}{12} \selectfont Under The Guidance of \\  
+\vspace*{2\baselineskip}} 
+Dr. G. P. Potdar\\
+\vskip 1cm
+\includegraphics[width=100pt]{collegelogo.png} \\
+\vskip 0.5cm
+{\bfseries \fontsize{14}{12} \selectfont 
+DEPARTMENT OF COMPUTER ENGINEERING\\
+Pune Institute of Computer Technology \\
+Dhankawadi, Pune-411043 
+}
+\end{center}
+
+\newpage
+
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=100pt]{collegelogo.png}
+\end{figure}
+
+
+{\bfseries \fontsize{14}{12} \selectfont \centerline{Pune Institute of Computer Technology}
+\centerline{DEPARTMENT OF COMPUTER ENGINEERING}
+\vspace*{2\baselineskip}} 
+
+
+{\bfseries \fontsize{16}{12} \selectfont \centerline{CERTIFICATE} 
+\vspace*{2\baselineskip}} 
+
+\centerline{This is to certify that the Project Entitled}
+\vspace*{.5\baselineskip} 
+
+
+{\bfseries \fontsize{14}{12} \selectfont \centerline{ Expressive english text-to-speech synthesis system}
+\vspace*{0.5\baselineskip}}
+
+\centerline{Submitted by}
+\vspace*{0.5\baselineskip} 
+\centerline{Pranjal Bhor  \hspace{25 mm} Roll No: B120054399 } 
+\centerline{Vaibhav Chaudhari \hspace{14 mm} Roll No: B120054254 } 
+\centerline{Prathamesh Dharangutte \hspace{3 mm} Roll No: B120054267 }
+\centerline{Murtaza Raja \hspace{24 mm} Roll No: B120054367 }\hfill \break
+\hfill \break
+is a bonafide work carried out by Students under the supervision of Dr. G. P. Potdar and it
+is submitted towards the partial fulfillment of the requirement of Bachelor of Engineering (Computer Engineering).\\
+\vskip 1cm
+\bgroup
+\def\arraystretch{0.7}
+\begin{tabular}{c c }
+Dr.  G. P. Potdar &  \hspace{50 mm} Dr. R. B. Ingle \\								
+Internal Guide   &  \hspace{50 mm} H.O.D \\
+Dept. of Computer Engg.  &	\hspace{50 mm}Dept. of Computer Engg.  \\
+\end{tabular}
+%}
+\begin{center}
+%\fontsize{12}{18}\selectfont 
+{
+\vskip 1cm
+Dr. P. T. Kulkarni\\
+Principal\\
+Pune Institute of Computer Technology  
+}
+\end{center}
+\vskip 1cm
+Signature of Internal Examiner \hspace{40 mm}\mbox{Signature of External Examiner}
+\newpage
+\begin{center}
+\textbf{PROJECT APPROVAL SHEET}
+\end{center}
+\hfill \break
+\begin{center}
+ \textbf{Expressive English Text-to-Speech Synthesis System}
+ \end{center}
+\begin{center}
+Is successfully completed by 
+\end{center}
+\centerline{Pranjal Bhor  \hspace{25 mm} Roll No: B120054399 } 
+\centerline{Vaibhav Chaudhari \hspace{14 mm} Roll No: B120054254  } 
+\centerline{Prathamesh Dharangutte \hspace{3 mm} Roll No: B120054267 }
+\centerline{Murtaza Raja \hspace{24 mm} Roll No: B120054367 }
+\begin{center}
+ at
+ \end{center} 
+ \begin{center}
+ DEPARTMENT OF COMPUTER ENGINEERING
+ \end{center}
+ \begin{center}
+ PUNE INSTITUTE OF COMPUTER TECHNOLOGY
+ \end{center}
+ \begin{center}
+ SAVITRIBAI PHULE PUNE UNIVERSITY,PUNE
+ \end{center}
+ 
+ \begin{center}
+ ACADEMIC YEAR 2016-2017
+ \end{center}
+ \hfill \break
+ \vspace*{1\baselineskip}}
+ \begin{tabular}{c c }
+Dr.  G. P. Potdar &  \hspace{50 mm} Dr. R. B. Ingle \\								
+Internal Guide   &  \hspace{50 mm} H.O.D \\
+Dept. of Computer Engg.  &	\hspace{50 mm}Dept. of Computer Engg.  \\
+\end{tabular}
+\newpage
+
+%\pictcertificate{TITLE OF BE PROJECT}{Student Name}{Exam Seat No}{Guide Name}
+\setcounter{page}{0}
+
+\frontmatter
+\cfoot{P.I.C.T., Department of Computer Engineering 2016-17}
+\rfoot{\thepage}
+\pagenumbering{Roman}
+%\pictack{BE PROJECT TITLE}{Guide Name}
+
+		
+{  \newpage {\bfseries \fontsize{14}{12} \selectfont \centerline{Abstract} 
+\vspace*{2\baselineskip}} \setlength{\parindent}{11mm} }
+{ \setlength{\parindent}{0mm} }
+	Many English text-to-speech conversion are available like Adobe Acrobat reader, Jovie and KMouth. But their output is extremely monotonic and robotic in nature. This limits their ability to be used for reading emotion rich novels. We try to solve this problem by using Machine Learning, Natural Language Processing and Digital Signal Processing concepts. Our system first predicts the emotions present in the text and then according to the emotion the system tries to modify the audio output of the text. For emotion prediction, we use a trained emotion classifier, which has been trained on the emotion datasets which are available publicly. Also, there is another system based on Natural Language Processing approach which tries to identify the arrangement of the sentence and based on which emotion of the sentence is predicted. The voice synthesis is done by a trained Hidden Markov Model based synthesis system. Presently, we identify and incorporate most prominent emotions in the text viz. neutral, joy, surprise, sadness and angry. 
+
+
+{  \newpage {\bfseries \fontsize{14}{12} \selectfont \centerline{Acknowledgments} 
+\vspace*{2\baselineskip}} \setlength{\parindent}{11mm} }
+{ \setlength{\parindent}{0mm} }
+\textit{It gives us great pleasure in presenting the project report 
+on {\bfseries \fontsize{12}{12} \selectfont `Expressive English Text-to-Speech Synthesis System'}.}
+\vspace*{1.5\baselineskip}
+
+ \textit{I would like to take this opportunity to thank my internal guide
+ \textbf{Prof. G. P. Potdar} for giving me all the help and guidance I needed. I am
+ really grateful to him for his kind support. His valuable suggestions were very helpful.} \vspace*{1.5\baselineskip}
+
+ \textit{I am also grateful to \textbf{Dr. R. B. Ingle}, Head of Computer
+ Engineering Department, Pune Institute Of Computer Technology for his indispensable
+ support, suggestions.}
+\vspace*{1.5\baselineskip}
+
+\textit{In the end our special thanks to \textbf{Mr. Shadrach Karsulkar} for
+providing various resources such as  laboratory with all needed software platforms,
+continuous Internet connection, for Our Project.}
+\vspace*{3\baselineskip} \\
+\begin{tabular}{p{8.2cm}c}
+&Pranjal Bhor\\
+&Vaibhav Chaudhari\\
+&Prathamesh Dharangutte\\
+&Murtaza Raja\\
+&(B.E. Computer Engg.)
+%}
+\end{tabular}
+
+
+% \maketitle
+\tableofcontents
+\listoffigures 
+\listoftables
+
+
+
+\mainmatter
+
+
+
+\titleformat{\chapter}[display]
+{\fontsize{16}{15}\filcenter}
+{\vspace*{\fill}
+ \bfseries\LARGE\MakeUppercase{\chaptertitlename}~\thechapter}
+{1pc}
+{\bfseries\LARGE\MakeUppercase}
+[\thispagestyle{empty}\vspace*{\fill}\newpage]
+
+
+
+
+
+
+
+\setlength{\parindent}{11mm}
+\chapter{Synopsis}
+
+\section{Project Title}
+ Expressive english text-to-speech synthesis system
+
+\section{ Project Option }
+Internal project
+
+\section{Internal Guide}
+Dr. G. P. Potdar
+
+
+\section{Technical Keywords (As per ACM Keywords)}
+% {\bfseries Technical Key Words:}      
+% \begin{itemize}
+%   \item 	Cloud Computing
+% \item	Service Composition
+% \item	Online Web services
+% \end{itemize}
+\begin{enumerate}
+	\item F: Theory Of Computation 
+	\begin{enumerate}
+		\item F.2: ANALYSIS OF ALGORITHMS AND PROBLEM COMPLEXITY 
+		\begin{enumerate}
+			\item F.2.1: Numerical Algorithms and Problems (G.1, G.4, I.1) 
+			\begin{enumerate}
+				\item  Computation of transforms (fast Fourier transform)
+				\item  Computations on matrices 
+			\end{enumerate}
+		\end{enumerate}
+		
+	\end{enumerate}	 
+	\item I: Computing Methodologies
+	\begin{enumerate}
+		\item I.2: ARTIFICIAL INTELLIGENCE
+		\begin{enumerate}
+			\item I.2.7: Natural Language Processing
+			\begin{enumerate}
+				\item Text analysis
+				\item Speech recognition and synthesis
+			\end{enumerate}
+		\end{enumerate}
+		\item I.5: PATTERN RECOGNITION
+		\begin{enumerate}
+			\item I.5.4: Applications
+			\begin{enumerate}
+				\item Signal Processing
+			\end{enumerate}
+		\end{enumerate}
+	\end{enumerate}		 
+\end{enumerate} 
+
+
+
+\section{Problem Statement}
+\label{sec:problem}
+         Develop a software program that reads a text file containing English sentences such that the emotions in the sentences are reflected in the audio.
+\section{Abstract}
+	 Many English text-to-speech conversion are available like Adobe Acrobat reader, Jovie and KMouth. But their output is extremely monotonic and robotic in nature. This limits their ability to be used for reading emotion rich novels. We try to solve this problem by using Machine Learning, Natural Language Processing and Digital Signal Processing concepts. Our system first predicts the emotions present in the text and then according to the emotion the system tries to modify the audio output of the text. For emotion prediction, we use a trained emotion classifier, which has been trained on the emotion datasets which are available publicly. Also, there is another system based on Natural Language Processing approach which tries to identify the arrangement of the sentence and based on which emotion of the sentence is predicted. The voice synthesis is done by a trained Hidden Markov Model based synthesis system. Presently, we identify and incorporate most prominent emotions in the text viz. neutral, joy, surprise, sadness and angry. 
+
+
+\section{Goals and Objectives}
+\begin{itemize}
+	\item Identify the emotions associated with the text.
+	\item Modify neutral speech to incorporate emotion associated with the text.
+\end{itemize}
+
+	
+\section{Relevant mathematics associated with the Project}
+\label{sec:math}
+Let S be the set denoting the system:\\
+S = $\{ s, e, X, Y, F_{me}, DD, NDD, S_{c}, F_{c} \}$\\
+where,\\
+s = start state\\
+\hspace*{5pt}  = Classifier for the sentences is trained\\
+e = end state\\
+\hspace*{5pt}  = System gives speech with emotions as output\\
+X = set of input\\
+\hspace*{5pt}  = \{text file\}\\
+Y = set of output\\
+\hspace*{5pt} = \{speech with emotions\}\\
+$F_{me}$ = set of functions\\
+\hspace*{5pt} = $\{F_{ip}, F_{ml}, F_{clas.}, F_{s/p}, F_{op}\}$\\
+where,\\
+$F_{ip}$ = Function to take input X\\
+$F_{ml}$ = Function to train the classifier using Machine Learning\\
+$F_{clas.}$ = Function to classify the input text\\
+$F_{s/p}$ = Function to synthesize the audio using Hidden Markov Model\\
+$F_{op}$ = Function to write the output speech file\\\\
+DD = Deterministic Data\\
+\hspace*{20pt}= $\phi$ \\
+NDD = Non Deterministic Data\\
+\hspace*{30pt} = \{X\}\\
+$S_{c}$ = Success case\\
+\hspace*{10pt} = Y contains speech with emotions\\
+$F_{c}$ = Failure case\\
+\hspace*{10pt} = $\overline{S_{c}}$
+
+
+
+\section{Names of Conferences / Journals where papers can be published}
+\begin{itemize}
+\item Association for Computational Linguistics: Human Language Technologies.
+\item The SIGNLL Conference on Computational Natural Language Learning.
+\end{itemize}
+
+
+\section{Review of Conference/Journal Papers supporting Project idea}
+\label{sec:survey}
+\begin{itemize}
+  \item Vanmassenhove, Eva, João P. Cabral, and Fasih Haider. "Prediction of emotions from text using sentiment analysis for expressive speech synthesis." 9th ISCA Speech Synthesis Workshop, Sunnyvale, USA, Septemper. 2016.
+  
+  \item M. Schröder and J. Trouvain (2003). The German Text-to-Speech Synthesis System MARY: A Tool for Research, Development and Teaching. International Journal of Speech Technology, 6, pp. 365-377.
+  
+  \item Pierre-Yves, Oudeyer. "The production and recognition of emotions in speech: 	features and algorithms." International Journal of Human-Computer Studies 59.1 	(2003): 157-183.
+  
+  \item Perikos, Isidoros, and Ioannis Hatzilygeroudis. "Recognizing emotions in text using ensemble of classifiers." Engineering Applications of Artificial Intelligence 51 (2016): 191-201.
+  
+  \item Perikos, Isidoros, and Ioannis Hatzilygeroudis. "Recognizing emotion presence in natural language sentences." International Conference on Engineering Applications of Neural Networks. Springer Berlin Heidelberg, 2013.
+  
+  \item Johnstone, Tom. The effect of emotion on voice production and speech acoustics. 	University of Western Australia, 2001.
+  
+  \item Alm, Cecilia Ovesdotter, Dan Roth, and Richard Sproat. "Emotions from text: 	machine learning for text-based emotion prediction." Proceedings of the conference 	on human language technology and empirical methods in natural language 	processing. Association for Computational Linguistics, 2005.
+  
+  \item Pang, Bo, and Lillian Lee. "Opinion mining and sentiment analysis." Foundations 	and trends in information retrieval 2.1-2 (2008): 1-135.
+  
+  \item Christiane Fellbaum, Ed. 1998. WordNet: An Electronic Lexical Database. MIT 	Press, Cambridge, Mass. 
+  
+  \item Chaffar, Soumaya, and Diana Inkpen. "Using a heterogeneous dataset for 	emotion analysis in text." Canadian Conference on Artificial Intelligence. Springer 	Berlin Heidelberg, 2011.
+\end{itemize}
+\section{Plan of Project Execution}
+\includegraphics[width=470pt]{project_plan.png} \\
+
+
+
+\chapter{Technical Keywords}
+\section{Area of Project}
+\begin{itemize}
+	\item Machine Learning.
+	\item Natural Language Processing.
+	\item Digital Signal Processing.
+\end{itemize}
+
+\section{Technical Keywords}
+% {\bfseries Technical Key Words:}      
+% \begin{itemize}
+%   \item 	Cloud Computing
+% \item	Service Composition
+% \item	Online Web services
+% \end{itemize}
+\begin{enumerate}
+	\item F: Theory Of Computation 
+	\begin{enumerate}
+		\item F.2: ANALYSIS OF ALGORITHMS AND PROBLEM COMPLEXITY 
+		\begin{enumerate}
+			\item F.2.1: Numerical Algorithms and Problems (G.1, G.4, I.1) 
+			\begin{enumerate}
+				\item  Computation of transforms (fast Fourier transform)
+				\item  Computations on matrices 
+			\end{enumerate}
+		\end{enumerate}
+		
+	\end{enumerate}	 
+	\item I: Computing Methodologies
+	\begin{enumerate}
+		\item I.2: ARTIFICIAL INTELLIGENCE
+		\begin{enumerate}
+			\item I.2.7: Natural Language Processing
+			\begin{enumerate}
+				\item Text analysis
+				\item Speech recognition and synthesis
+			\end{enumerate}
+		\end{enumerate}
+		\item I.5: PATTERN RECOGNITION
+		\begin{enumerate}
+			\item I.5.4: Applications
+			\begin{enumerate}
+				\item Signal Processing
+			\end{enumerate}
+		\end{enumerate}
+	\end{enumerate}		 
+\end{enumerate} 
+
+			
+\chapter{Introduction}
+\section{Project Idea}
+\begin{itemize}
+\item Project Idea
+\end{itemize}
+
+
+\section{Motivation of the Project}  
+\begin{itemize}
+	\item The 'read-aloud' function of the PDF readers reads the text in monotonic speech.
+	\item Unsatisfactory emotional aspects of the existing PDF reading systems.
+	\item Very few existing TTS understand the text before producing output.
+\end{itemize}
+
+\section{Literature Survey}
+\begin{enumerate}
+	\item Vanmassenhove, Eva, João P. Cabral, and Fasih Haider. "Prediction of emotions from text using sentiment analysis for expressive speech synthesis." 9th ISCA Speech Synthesis Workshop, Sunnyvale, USA, Septemper. 2016.
+	\begin{itemize}
+		\item This paper presents a Text-to-speech engine which identifies emotions from text using a Machine Learning classifier. Then a voice is synthesized using Hidden Markov Modelling technique. The voice is modified using various emotions' characteristics classified using Self-Organizing Maps (SOM). The authors clain that it gives fairly good results in novels and fairy tales reading.
+	\end{itemize}
+	\item Perikos, Isidoros, and Ioannis Hatzilygeroudis. "Recognizing emotions in text using ensemble of classifiers." Engineering Applications of Artificial Intelligence 51 (2016): 191-201
+	\begin{itemize}
+		\item This project extensively focusses on identifying emotions from English text. The authors have developed 2 classifiers, one Naive-Bayes and other is Max-entropy, for identification of emotions. Also, they have used Stanford Parser's Universal dependency for identifying sentence construction and then predicting the emotions. These three emotion prediction sub-systems then vote on the emotions they have retrieved and the emotion which gets maximum votes is selected as the overall emotion of the sentence.
+	\end{itemize}
+	\item Bowles Tristan, and Sandra Pauletto. "Emotions in the voice: humanising a robotic voice." Proceedings of the 7th Sound and Music Computing Conference, Barcelona, Spain. 2010
+	\begin{itemize}
+		\item The focus of this project is the manipulation of a robotic	voice signal for the purpose of adding emotional expression. In particular, its main aim was to design the emotion expressed by a robotic voice by manipulating specific acoustic parameters such as pitch, amplitude and speech rate. The three basic emotions considered were: anger, happiness and sadness.
+		The technique of manipulating the accoustic parameters used in this paper will be helpful to implement the speech processing engine in our project. 
+	\end{itemize}
+	\item Pierre-Yves Oudeyer. “The production and recognition of emotions in speech: features and algorithms.” International Journal of Human-Computer Studies, 2003
+	\begin{itemize}
+		\item This paper presents algorithms that allows a robot to express its emotions by modulating the
+		intonation of its voice. It describes a technique which allows to
+		continuously control both the age of a synthetic voice and the quantity of emotions that
+		are expressed. Also, it presents the first large-scale data mining experiment about the
+		automatic recognition of basic emotions in informal everyday short utterances. Its primary focused on
+		the speaker-dependent problem.	
+	\end{itemize}
+	\item Sriram, S., \& Yuan, X. (2012, March). An enhanced approach for classifying emotions using customized decision tree algorithm. In Southeastcon, 2012 Proceedings of IEEE (pp. 1-6). IEEE.
+	\begin{itemize}
+		\item In this paper a simple and memory optimized way for classifying emotions is discussed using customized decision tree.They have modified the already existing  Digg dataset and SemEval Affective Text-2007 by adding a new feature,emotion intensity.
+	\end{itemize}
+	\item Yong-Soo   seol,   Dong-Joo   Kim   and   Han-Woo   Kim,   "Emotion Recognition from Text using Knowledge-based ANN ", The 23'd International  Technical Conference  on Circuit/Systems, Computers and Communications. (lTS-CSCC-2008).
+	\begin{itemize}
+		\item Yong-Soo Seol gives a hybrid method by incorporating knowledge-based method and machine learning method using artificial neural network for emotion detection.
+	\end{itemize}
+	\item Hsieh, Y. L., Liu, S. H., Chang, Y. C., \& Hsu, W. L. (2015, August). Neural Network-based Vector Representation of Documents for Reader-Emotion Categorization. In Information Reuse and Integration (IRI), 2015 IEEE International Conference on (pp. 569-573). IEEE.
+	\begin{itemize}
+		\item In this paper emotion categorization using word embeddings is discussed on Chinese news corpus. Word embeddings can capture semantic context and can be used to infer similarity between words. This approach requires very little feature engineering and yields substantial success.
+	\end{itemize}
+\end{enumerate}
+
+
+\chapter{Problem Definition and scope}
+\section{Problem Statement}
+Develop a software program that reads a text file containing English sentences such that the emotions in the sentences are reflected in the audio.
+
+
+\subsection{Goals and objectives}  
+Goal and Objectives: 
+\begin{itemize}
+  	\item Identify the emotions associated with text.
+  	\item Generate audio in neutral tone.
+  	\item Modify neutral speech to incorporate emotion associated with the text.
+\end{itemize}
+
+ \subsection{Statement of scope} 
+	\begin{itemize}  
+	\item	The project aims at identifying 4 different emotions (happy, angry, sad and neutral) from the english text and producing speech that incorporates the emotions in the output. 
+	\item The input of the project is English text or English PDF file.
+	\item The output of the project is speech signal with emotions of the text incorporated in it.
+	\end{itemize}
+
+
+\section{Major Constraints}
+\begin{itemize}
+\item Accent of the neutral TTS engine used will determine the frequency ranges in which the output has to be modified.
+\item English language is the only input language allowed.
+\item Emotions other than the above four mentioned are not identified. 
+\end{itemize}
+
+\section{Methodologies of Problem solving and efficiency issues}
+\begin{itemize}
+		\item Naive Bayes classification: Naive Bayes requires a small number of training data to estimate the parameters necessary for classification.
+		\item LSTM classification: A LSTM network is universal in the sense that given enough network units it can compute anything a conventional computer can compute, provided it has the proper weight matrix, which may be viewed as its program.
+		\item Support vector machines: It can efficiently perform a non-linear classification by implicitly mapping their inputs into high-dimensional feature spaces.
+		\item HMM-based synthesis: In this system , the frequency spectrum (vocal tract), fundamental frequency and duration of speech are modeled simultaneously by Hidden Markov Models.
+\end{itemize}
+
+
+
+\section{Outcome}
+\begin{itemize}
+\item A software system that will be able to identify the emotion in the given english sentences and produce a speech signal output that incorporates the emotion in the text.
+\end{itemize}
+
+\section{Applications}
+\begin{itemize}
+\item PDF reader plug-in especially for listening to novels and stories.
+\item Automatic Generation of audio books.
+\item Automatic Text-to-speech generation in video games.
+\end{itemize}
+
+\section{Hardware Resources Required}
+\begin{table}[!htbp]
+	\begin{center}
+		\def\arraystretch{1.5}
+		\begin{tabular}{| c | c | c | c |}
+			\hline
+			Sr. No. &	Parameter &	Minimum Requirement & Justification \\
+			\hline
+			1 &	CPU Speed &	 2.5 GHz  & Fast processor required for fast proceesing\\
+			\hline
+			2 &	RAM  &	4 GB &  Temporary storage of large audio data\\
+			\hline
+		\end{tabular}
+		\caption { Hardware Requirements }
+		\label{tab:hreq}
+	\end{center}
+	
+\end{table}
+
+
+\section{Software Resources Required}
+Platform : 
+\begin{enumerate}
+\item Operating System: Linux Ubuntu 16.04 
+\item Programming Language: Python
+\end{enumerate}
+
+
+
+
+\chapter{Project Plan}
+
+\section{Project Estimates}
+\subsection{Reconciled Estimates}
+\subsubsection{Cost Estimate}
+Nil
+
+\subsubsection{Time Estimates}
+	 About 7 months
+
+
+
+\subsection{Project Resources}
+          Project resources  [People, Hardware, Software, Tools and other resources] based on Memory Sharing, IPC, and Concurrency derived using appendices to be referred. 
+
+\section{Risk Management w.r.t. NP Hard analysis}
+\subsection{Risk Identification}
+For risks identification, review of scope document, requirements specifications and schedule is done. Answers to questionnaire revealed some risks. Each risk is categorized as per the categories mentioned in Pressman. Please refer table \ref{tab:risk} for all the risks
+
+\subsection{Risk Analysis}
+The risks for the Project can be analyzed within the constraints of time and quality
+
+\begin{table}[!htbp]
+	\begin{center}
+		%\def\arraystretch{1.5}
+		\def\arraystretch{1.5}
+		\begin{tabularx}{\textwidth}{| c | X | c | c | c | c |}
+			\hline
+			\multirow{2}{*}{ID} & \multirow{2}{*}{Risk Description}	& \multirow{2}{*}{Probability} & \multicolumn{3}{|c|}{Impact} \\ \cline{4-6}
+			& & &	Schedule	& Quality	& Overall \\ \hline
+			1	& Risk 1	& Medium	& Low	& Medium	& Medium \\ \hline
+			2	& Risk 2	& Low	& Low	& Medium	& Medium \\
+			\hline
+			2	& Risk 3	& Medium	& Medium	& Medium	& Medium \\ \hline
+		\end{tabularx}
+	\end{center}
+	\caption{Risk Table}
+	\label{tab:risk}
+\end{table}
+
+
+\begin{table}[!htbp]
+\begin{center}
+%\def\arraystretch{1.5}
+\def\arraystretch{1.5}
+\begin{tabular}{| c | c | c |}
+\hline
+Probability & Value &	Description \\ \hline
+High &	Probability of occurrence is &  $ > 75 \% $ \\ \hline
+Medium &	Probability of occurrence is  & $26-75 \% $ \\ \hline
+Low	& Probability of occurrence is & $ < 25 \% $ \\ \hline
+\end{tabular}
+\end{center}
+\caption{Risk Probability definitions }
+\label{tab:riskdef}
+\end{table}
+
+\begin{table}[!htbp]
+\begin{center}
+%\def\arraystretch{1.5}
+\def\arraystretch{1.5}
+\begin{tabularx}{\textwidth}{| c | c | X |}
+\hline
+Impact & Value	& Description \\ \hline
+Very high &	$> 10 \%$ & Schedule impact or Unacceptable quality \\ \hline
+High &	$5-10 \%$ & Schedule impact or Some parts of the project have low quality \\ \hline
+Medium	& $ < 5 \% $ & Schedule impact or Barely noticeable degradation in quality Low	Impact on schedule or Quality can be incorporated \\ \hline
+\end{tabularx}
+\end{center}
+\caption{Risk Impact definitions }
+\label{tab:riskImpactDef}
+\end{table}
+
+\subsection{Overview of Risk Mitigation, Monitoring, Management}
+
+
+Following are the details for each risk.
+\begin{table}[!htbp]
+	\begin{center}
+		%\def\arraystretch{1.5}
+		\def\arraystretch{1.5}
+		\begin{tabularx}{\textwidth}{| l | X |}
+			\hline 
+			Risk ID	& 1 \\ \hline
+			Risk Description	& If some of the words in the sentence are unknown to the classifier then the emotion of the sentence may not be identified correctly. \\ \hline
+			Category	& Post-deployment \\ \hline
+			Source	& Input text \\ \hline
+			Probability	& Medium \\ \hline
+			Impact	& Medium \\ \hline
+			Response	& Mitigate \\ \hline
+			Strategy	& Give only one emotion for the entire sentence \\ \hline
+			Risk Status	&  Identified\\ \hline
+		\end{tabularx}
+	\end{center}
+	%\caption{Risk Impact definitions \cite{bookPressman}}
+	\label{tab:risk1}
+\end{table}
+
+\begin{table}[!htbp]
+	\begin{center}
+		%\def\arraystretch{1.5}
+		\def\arraystretch{1.5}
+		\begin{tabularx}{\textwidth}{| l | X |}
+			\hline 
+			Risk ID	& 2 \\ \hline
+			Risk Description	& If all the words in the sentence are unknown to the classifier, then the sentence cannot be labelled. \\ \hline
+			Category	& Post-deployment \\ \hline
+			Source	& Input text \\ \hline
+			Probability	& Low \\ \hline
+			Impact	& Medium \\ \hline
+			Response	& Mitigate \\ \hline
+			Strategy	& Making classifier using larger dataset  \\ \hline
+			Risk Status	& Identified \\ \hline
+		\end{tabularx}
+	\end{center}
+	\label{tab:risk2}
+\end{table}
+
+\begin{table}[!htbp]
+	\begin{center}
+		%\def\arraystretch{1.5}
+		\def\arraystretch{1.5}
+		\begin{tabularx}{\textwidth}{| l | X |}
+			\hline 
+			Risk ID	& 3 \\ \hline
+			Risk Description	& A sentence might contain more that one emotion which might make it difficult to process its audio. \\ \hline
+			Category	& Development \\ \hline
+			Source	& Classifier label \\ \hline
+			Probability	& Medium \\ \hline
+			Impact	& Medium \\ \hline
+			Response	& Accept \\ \hline
+			Strategy	& Processing audio using available technique  \\ \hline
+			Risk Status	& Identified \\ \hline
+		\end{tabularx}
+	\end{center}
+	\label{tab:risk3}
+\end{table}
+
+\section{Project Schedule}  
+\subsection{Project task set}  
+Major Tasks in the Project stages are:
+\begin{itemize}
+	\item Task 1: Learning and understanding the basics of machine learning and digital signal processing techniques.
+	\item Task 2: Generating a large dataset for emotion identification. 
+	\item Task 3: Implementing and comparing various techniques available for speech processing and selecting the suitable one.
+	\item Task 4: Creating a classifier that classifies the emotions in english text with reasonable accuracy.
+	\item Task 5: Creating a speech signal processing module.
+	\item Task 6: Combining speech signal processing module and classifier module to complete the system.
+	\item Task 7: Testing and fixing of bugs in the system.
+	\item Task 8: Documentation and open source release of the project.
+\end{itemize}
+
+\subsection{Task network}  
+\vspace*{1\baselineskip}
+\includegraphics[width=400pt]{task_network.png}
+\subsection{Timeline Chart}  
+\includegraphics[height=300pt,width=480pt]{gantt_chart.png}
+
+ 
+\section{Team Organization}  
+\subsection{Team structure}
+The team structure for the project is identified. Roles are defined.
+\begin{itemize}
+	\item Pranjal Bhor: Multi-threaded execution of the system and NLP emotion classifier developer.
+	\item Vaibhav Chaudhari: Speech Synthesis System and signal processing developer.
+	\item Prathamesh Dharangutte: Developer of Machine Learning based emotion classifier.
+	\item Murtuza Raja: UI and NLP based emotion classifier developer.
+\end{itemize}
+
+\subsection{Management reporting and communication}
+\begin{itemize}
+\item E-mail
+\item Slack
+\item Whatsapp
+\item Verbal communication
+\end{itemize}
+ 
+\chapter{Software requirement specification  }
+
+\section{Introduction}
+\subsection{Purpose and Scope of Document}
+The purpose of this document is to present a detailed description of emotion labelling and speech signal processing mechanisms with a text-to-speech engine. It will explain the purpose and features of the system, the interfaces of the system, what the system will
+do, and how the system will react to external stimuli. This document is intended for
+both the users and the developers of the system.
+This software system is designed to enhance the emotional aspect of the neutral text-to-speech engine. The system can be used by the PDF readers, audio books generating studios and video games companies to automate the reading of the english text. 
+
+\subsection{Overview of responsibilities of Developer}
+The problem was understood. The requirements of the project were defined.
+\begin{itemize}
+	\item Project design and development activities will be performed according to the
+	requirements.
+	\item Project plan development.
+	\item Research about a novel approach to the problem.
+	\item Different tasks were carried out to increase the quality of the project.
+\end{itemize}
+  
+\section{Usage Scenario}
+This section provides various usage scenarios for the system to be developed.  
+\subsection{5.2.1 User profiles}  
+\begin{itemize}
+	\item \textbf{User}: User is the actor who uses the system. That is, user gives input to the system and gets the system's output.
+	\item \textbf{Developer}: Developer is the actor who is responsible for designing, developing and maintaining the software system.
+	\item \textbf{Researcher}: Researcher is responsible for formulating new features for the system, which are not currently available.
+\end{itemize}
+
+\subsection{Use-cases}
+\begin{table}[!htbp]
+	\begin{center}
+		%\def\arraystretch{1.5}
+		\def\arraystretch{1.5}
+		\begin{tabularx}{\textwidth}{| c | c | X | c | X |}
+			\hline
+			Sr No.	& Use Case	& Description	& Actors	& Assumptions \\
+			\hline
+			1& English text input & The input file contains only the english text & User & The input is english text file \\
+			\hline
+			1& Non english text input & The input file contains non-english sentences & User & The input file contains english text \\
+			\hline
+		\end{tabularx}
+	\end{center}
+	\caption{Use Cases}
+	\label{tab:usecase}
+\end{table}
+
+
+\subsection{Use Case View}
+Use Case Diagram. Example is given below
+\begin{center}
+	\begin{figure}[!htbp]
+		\hspace*{10pt}
+		\includegraphics[width=340pt,height=230pt]{usecase.png}
+		\caption{Use case diagram}
+		\label{fig:usecase}
+	\end{figure}
+\end{center}  
+
+\section{Data Model and Description}  
+\subsection{Data Description}  
+Data objects that will be managed/manipulated by the software are described in this section. The database entities or files or data structures  required to be described. For data objects details can be given as below
+\subsection{Data objects and Relationships}
+ The following kinds of data will be an input to the system:
+ \begin{itemize}
+ 	\item Text file containing english sentences
+ \end{itemize}
+ The data that will be manipulated by the system is:
+ \begin{itemize}
+ 	\item Neutral audio speech
+ \end{itemize}
+
+ 
+ 
+\section{Functional Model and Description}  
+
+\subsection{Data Flow Diagram}  
+\includegraphics[width=430pt,height=250pt]{data_flow.png}
+ 
+
+
+
+ 
+\subsection{Activity Diagram:}
+\begin{center}
+	\begin{figure}[!htbp]
+		\centering
+		\fbox{\includegraphics[height=330pt,width=400pt]{activity.png}}
+		\caption{Activity diagram}
+		\label{fig:act-dig}
+	\end{figure}
+\end{center} 
+
+\subsection{Non Functional Requirements:}
+\begin{itemize}
+	\item	Interface Requirements
+	\item	Performance Requirements
+    \item	Software quality attributes such as availability [ related to Reliability], modifiability [includes portability, reusability, scalability] ,  		performance, security, testability and usability[includes self 			adaptability and user adaptability] 
+\end{itemize} 
+
+\subsection{State Diagram:}	
+\begin{center}
+	\begin{figure}[!htbp]
+		\centering
+		\fbox{\includegraphics[width=400pt,height=290pt]{state.png}}
+		\caption{State transition diagram}
+		\label{fig:state-dig}
+	\end{figure}
+\end{center} 
+ 
+ \subsection{Design Constraints}	
+Any design constraints that will impact the subsystem are noted.
+ \subsection{Software Interface Description}	 
+The software interface(s)to the outside world is(are) described.
+The requirements for interfaces to other devices/systems/networks/human are stated.
+
+
+
+\chapter{Detailed Design Document using Appendix A and B}
+ \section{Introduction}  
+This document specifies the design that is used to solve the problem of Product.  
+\section{Architectural Design}  
+	A description of the program architecture is presented.
+
+ 
+  \begin{center}
+	\begin{figure}[!htbp]
+		\centering
+		\fbox{\includegraphics[width=400pt,height=300pt]{architechture.png}}
+	  \caption{Architecture diagram}
+	  \label{fig:arch-dig}
+	\end{figure}
+\end{center} 
+
+
+\section{Data design (using Appendices A and B)}   
+A description of all data structures including internal, global, and temporary data structures, database design (tables), file formats.
+\subsection{Internal software data structure}
+Data structures that are passed among components the software are described.
+\begin{itemize}
+	\item Multi-dimensional arrays.
+\end{itemize}
+\subsection{Global data structure}
+\begin{itemize}
+	\item Array containing the sampled data of neutral audio.
+\end{itemize}
+\subsection{Database description}
+\begin{itemize}
+	\item Input data is stored in plain text files.
+	\item Audio data is stored in .wav files.
+\end{itemize}
+
+
+\section{Component Design} 
+\subsection{Class Diagram}
+ \begin{center}
+	\begin{figure}[!htbp]
+		\centering
+		\fbox{\includegraphics[width=450pt]{class_diagram.png}}
+	  \caption{Class Diagram}
+	  \label{fig:class-dig}
+	\end{figure}
+\end{center} 
+ 
+\chapter{Project Implementation}
+  \section{Introduction}
+  Our system consists of a simple GUI wherein user has to load his text/PDF file containing English sentences. As soon as the file is loaded, each sentence from the file gets tagged with its most probable emotion. After clicking on speak button, affective audio for the sentences is generated and stored as a .wav file which is automatically played in the GUI. The user can control the audio file playing using a small media player provided.
+  \section{Tools and Technologies Used}
+  \begin{enumerate}
+  	\item Python 2.7 Programming language
+  	\item MaryTTS signal processing engine
+  	\item HTS: Hidden Markov Modelling based voice synthesis tool
+  	\item NLTK and SCIKIT libraries
+  	\item Stanford Parser
+  \end{enumerate}
+  \section{Methodologies/Algorithm Details}
+  \subsection{Algorithm}
+  def generate\_audio(sentence): \newline
+	  \hspace*{10mm} naive\_emotion = get\_emotion\_from\_naive(sentence) \\
+	  \hspace*{12mm}lstm\_emotion = get\_emotion\_from\_lstm(sentence) \\
+	  \hspace*{12mm}nlp\_emotion = get\_emotion\_from\_nlp(sentence) \\
+	  \hspace*{11mm} emotion = most\_voted\_emotion(naive\_emotion,lstm\_emotion,nlp\_emotion) \\
+	  \hspace*{12mm}neutral\_audio = HMMaudio\_synthesis(sentence) \\
+	  \hspace*{12mm}affective\_audio = signalproc(sentence,emotion) \\
+	  \hspace*{12mm}return save\_audio(affective\_audio) \\
+	  end \newline
+	  
+	  final\_audio = $\phi$ \\
+	  \hspace*{11mm}for each sentence in input do \\
+	  \hspace*{16mm}temp\_audio =  generate\_audio(sentence)\\
+	  \hspace*{16mm}final\_audio = final\_audio $\bigcup$ temp\_audio \\
+	  end\\
+	  
+  \section{Verification and Validation for Acceptance}
+  Many different sentences denoting various emotions like joy, sadness, surprise, angry and neutral were given to the system. The system predicted the emotions and the people who tested the system agreed on the satisfactory level of the output. The corresponding audio generated was also approved by the users who tested the system. This provided verification as well as validation for the project and it got acceptance.
+  
+\chapter{Software Testing}
+ \section{Type of Testing Used}
+   \begin{enumerate}
+	\item Unit testing \\
+	Emotion prediction unit was tested by providing some sentences rich with 5 emotions. The unit most of the times produced agreeable emotion label for the sentences. For voice synthesis and digital signal processing unit, same sentences were given as input. The affective audio generated by the unit was perceived to contain the emotion tagged as reported by the test users.
+	
+	\item Integration \\
+	The emotion prediction and voice synthesis modules were then integrated. A sentence was passed to the input function of the system. The emotion classifier correctly identified the emotion tag of the sentence and then using this emotion tag, the affective audio was generated. 
+   \end{enumerate}
+   
+   \section{Test Cases and Test Results}
+   \begin{table}[!htbp]
+   	\begin{center}
+   		%\def\arraystretch{1.5}
+   		\def\arraystretch{1.5}
+   		\begin{tabularx}{\textwidth}{|X|c|c|}
+   			\hline 
+   			Input	& Expected Output & Actual Output \\ \hline
+   			I am very delighted & joy & joy \\ \hline
+   			My dog died & sadness & sadness \\ \hline
+   			Oh my God, I got that! & surprise & surprise \\ \hline
+   			I am very angry at that behaviour & anger & anger \\ \hline
+   			Those were tough times for me & neutral & neutral \\ \hline
+   			I am not happy & sadness & sadness \\ \hline
+   			I am not very sad & neutral & neutral \\ \hline
+   		\end{tabularx}
+   	\end{center}
+   	\label{tab:testcases}
+   \end{table}
+   
+\chapter{Results}
+\section{Screen shots}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=300pt]{1.png}
+	\caption{Welcome screen}
+	\label{fig:welcome-screen}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=300pt,height=263pt]{2.png}
+	\caption{emotion prediction screen}
+	\label{fig:emotion-prediction-screen}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=300pt]{3.png}
+	\caption{Audio playing screen}
+	\label{fig:audio-playing-screen}
+\end{figure}
+
+\chapter{Deployment and Maintenance}
+     \section{Installation and un-installation}
+     \begin{enumerate}
+     	\item Install project dependencies which includes: marytts-5.2, python 2.7, NLTK library, StanfordParser library, textract library, PyQT 4 and Phonon PyQT 4.
+     	\item Download project source code
+     	\item Execute 'run\_mary\_server.sh' script
+     	\item Execute 'qtmain.py' script
+     \end{enumerate}
+     
+ \chapter{Conclusion and future scope}
+This project deals with the synthesis of expressive audio from the text. In this project we predict the emotion associated with a sentence and then generate audio corresponding to that audio and the sentence. The accuracy of the emotion prediction module is very important aspect in this process. Present techniques for emotion detection are not very accurate. So there is a tremendous scope for improvement in emotion detection. Currently, the system cannot effectively identify emotions of the sentences which contains words like 'rather' and 'but'. Some mechanism can be derived to handle such types of sentences. Building voices of characters according to their age, gender, background and other characteristics can be done using this project in the future.
+
+% \bibliographystyle{plain}
+
+\bibliographystyle{ieeetr}
+\bibliography{biblo}
+
+\begin{appendices}
+
+\chapter{References}
+\begin{itemize}
+	\item Vanmassenhove, Eva, João P. Cabral, and Fasih Haider. "Prediction of emotions from text using sentiment analysis for expressive speech synthesis." 9th ISCA Speech Synthesis Workshop, Sunnyvale, USA, Septemper. 2016.
+	
+	\item M. Schröder and J. Trouvain (2003). The German Text-to-Speech Synthesis System MARY: A Tool for Research, Development and Teaching. International Journal of Speech Technology, 6, pp. 365-377.
+	
+	\item Pierre-Yves, Oudeyer. "The production and recognition of emotions in speech: 	features and algorithms." International Journal of Human-Computer Studies 59.1 	(2003): 157-183.
+	
+	\item Perikos, Isidoros, and Ioannis Hatzilygeroudis. "Recognizing emotions in text using ensemble of classifiers." Engineering Applications of Artificial Intelligence 51 (2016): 191-201.
+	
+	\item Perikos, Isidoros, and Ioannis Hatzilygeroudis. "Recognizing emotion presence in natural language sentences." International Conference on Engineering Applications of Neural Networks. Springer Berlin Heidelberg, 2013.
+	
+	\item Johnstone, Tom. The effect of emotion on voice production and speech acoustics. 	University of Western Australia, 2001.
+	
+	\item Alm, Cecilia Ovesdotter, Dan Roth, and Richard Sproat. "Emotions from text: 	machine learning for text-based emotion prediction." Proceedings of the conference 	on human language technology and empirical methods in natural language 	processing. Association for Computational Linguistics, 2005.
+	
+	\item Pang, Bo, and Lillian Lee. "Opinion mining and sentiment analysis." Foundations 	and trends in information retrieval 2.1-2 (2008): 1-135.
+	
+	\item Christiane Fellbaum, Ed. 1998. WordNet: An Electronic Lexical Database. MIT 	Press, Cambridge, Mass. 
+	
+	\item Chaffar, Soumaya, and Diana Inkpen. "Using a heterogeneous dataset for 	emotion analysis in text." Canadian Conference on Artificial Intelligence. Springer 	Berlin Heidelberg, 2011.
+\end{itemize}
+
+% \chapter{ALGORITHMIC DESIGN}
+\chapter{Laboratory assignments on Project Analysis of Algorithmic Design}
+\begin{itemize}
+\item To develop the problem under consideration and justify feasibilty using
+concepts of knowledge canvas and IDEA Matrix.\\
+Refer \cite{innovationbook} for IDEA Matrix and Knowledge canvas model. Case studies are given in this book. IDEA Matrix is represented in the following form. Knowledge canvas represents about identification  of opportunity for product. Feasibility is represented w.r.t. business perspective.\\ 
+
+\begin{table}[!htbp]
+\begin{center}
+  \begin{tabular}{| c | c | c | c |}
+\hline
+ I & D & E & A \\ 
+\hline
+Increase & Drive & Educate & Accelerate \\
+\hline
+Improve & Deliver & Evaluate & Associate  \\
+ \hline
+Ignore & Decrease & Eliminate & Avoid \\
+\hline
+\end{tabular}
+ \caption { IDEA Matrix }
+ \label{tab:imatrix}
+\end{center}
+\end{table}
+
+\item Project problem statement feasibility assessment using NP-Hard, NP-Complete or satisfy ability issues using modern algebra and/or relevant mathematical models.
+\item input x,output y, y=f(x)
+\end{itemize}
+
+\chapter{Laboratory assignments on Project Quality and Reliability Testing of Project Design}
+
+It should include assignments such as
+\begin{itemize}
+\item Use of divide and conquer strategies to exploit distributed/parallel/concurrent processing of the above to identify object, morphisms, overloading in functions (if any), and functional relations and any other dependencies (as per requirements).
+             It can include Venn diagram, state diagram, function relations, i/o relations; use this to derive objects, morphism, overloading
+
+\item Use of above to draw functional dependency graphs and relevant Software modeling methods, techniques
+including UML diagrams or other necessities using appropriate tools.
+\item Testing of project problem statement using generated test data (using mathematical models, GUI, Function testing principles, if any) selection and appropriate use of testing tools, testing of UML diagram's reliability. Write also test cases [Black box testing] for each identified functions. 
+You can use Mathematica or equivalent open source tool for generating test data. 
+\item Additional assignments by the guide. If project type as Entreprenaur, Refer \cite{ehr},\cite{mckinsey},\cite{mckinseyweb}, \cite{govwebsite}
+\end{itemize}
+
+
+\chapter{Project Planner}
+\label{app:plan}
+\includegraphics[height=300pt,width=480pt]{gantt_chart.png}
+
+
+
+\chapter{Plagiarism Report}
+Plagiarism report \\
+\includegraphics[width=400pt,height=450pt]{plagiarism.png}
+
+\chapter{ Term-II Project Laboratory Assignments}
+\begin{center}
+	\textbf{Assignment 1}
+\end{center}
+Title: \\
+Review of design and necessary corrective actions taking into consideration the feedback report of Term I assessment, and other competitions/conferences participated like IIT, Central Universities, University Conferences or equivalent centers of excellence etc. \\ \\
+Earlier state of the project:\\
+Simple sentences could be easily tagged with their emotions. But when some qualifying word comes, the emotion identification failed. It gave erratic results. \\\\
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=400pt, height=340pt]{earlier.png}
+	\caption{“I am not happy” wrongly classified as joy}
+	\label{fig:“I am not happy” wrongly classified as joy}
+\end{figure}
+
+\newpage
+After Corrective actions:\\
+Sentences containing ‘not’ and qualifiers like ‘very’, ‘extremely’ are handled.\\\\
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=400pt, height=340pt]{later.png}
+	\caption{“I am not happy” correctly classified as sadness}
+	\label{fig:“I am not happy” correctly classified as sadness}
+\end{figure}
+
+\newpage
+\begin{center}
+	\textbf{Assignment 2}
+\end{center}
+Title:\\
+Project workstation selection, installations along with setup and installation report preparations.\\
+
+Workstation Selection:\\
+Platform – Linux platform is suitable because most of the dependencies of our software can be easily setup in it.\\
+Number of cores in the machine – Multi-core system is preferable because our software exploits multithreading for faster execution.\\\\
+\hspace*{8mm}Dependencies:\\
+\begin{enumerate}
+	\item marytts-5.2
+	\item python 2.7
+	\item NLTK library
+	\item Stanford Parser library
+	\item textract library
+	\item PyQT 4
+	\item Phonon PyQT 4\\\\
+\end{enumerate}
+
+Installation:\\
+\begin{enumerate}
+	\item Install project dependencies which includes: marytts-5.2, python 2.7,
+	NLTK library, StanfordParser library, textract library, PyQT 4 and
+	Phonon PyQT 4.
+	\item Download project source code
+	\item Execute 'run mary server.sh' script
+	\item Execute 'qtmain.py' script
+\end{enumerate}
+
+\newpage
+\begin{center}
+	\textbf{Assignment 3}
+\end{center}
+Title:\\
+ Programming of the project functions, interfaces and GUI (if any) as per 1 st Term term-work submission using corrective actions recommended in Term-I assessment of Term-work. \\ \\
+ 
+\hspace*{0mm}Project GUI as per 1st Term term-work:\\ \\
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=400pt, height=340pt]{earlier_gui.png}
+	\caption{Naive GUI made using python TKinter}
+	\label{fig:Naive GUI made using python TKinter}
+\end{figure}
+
+\newpage
+Project GUI after corrective actions suggested by project guide:\\\\
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=400pt, height=400pt]{later_gui.png}
+	\caption{Improved GUI with native look-and-feel}
+	\label{Improved GUI with native look-and-feel}
+\end{figure}
+
+\newpage
+\begin{center}
+	\textbf{Assignment 4}
+\end{center}
+Title:\\
+Test tool selection and testing of various test cases for the project performed and generate various testing result charts, graphs etc. including reliability testing.\\\\
+Type of Testing Used:\\
+\begin{enumerate}
+	\item Unit Testing: \\
+		Emotion prediction unit was tested by providing some sentences rich
+		with 5 emotions. The unit most of the times produced agreeable emo-
+		tion label for the sentences. For voice synthesis and digital signal pro-
+		cessing unit, same sentences were given as input. The affective audio
+		generated by the unit was perceived to contain the emotion tagged as
+		reported by the test users.
+
+	\item Integration testing: \\
+		The emotion prediction and voice synthesis modules were then inte-
+		grated. A sentence was passed to the input function of the system. The
+		emotion classifier correctly identified the emotion tag of the sentence
+		and then using this emotion tag, the affective audio was generated.\\\\
+\end{enumerate}
+
+\newpage
+Test Cases and Test Results:\\
+
+\begin{enumerate}
+\item Emotion Classification testing\\
+\begin{table}[!htbp]
+	\begin{center}
+		%\def\arraystretch{1.5}
+		\def\arraystretch{1.5}
+		\begin{tabularx}{\textwidth}{|X|c|c|}
+			\hline 
+			Input	& Expected Output & Actual Output \\ \hline
+			I am very delighted & joy & joy \\ \hline
+			My dog died & sadness & sadness \\ \hline
+			Oh my God, I got that! & surprise & surprise \\ \hline
+			I am very angry at that behaviour & anger & anger \\ \hline
+			Those were tough times for me & neutral & neutral \\ \hline
+			I am not happy & sadness & sadness \\ \hline
+			I am not very sad & neutral & neutral \\ \hline
+		\end{tabularx}
+	\end{center}
+	\label{tab:testcases}
+\end{table}
+
+
+\item Testing output audio quality:\\
+For voice synthesis and digital signal processing unit, same sentences were given as input. The affective audio generated by the unit was perceived to contain the emotion tagged as reported by the test users.\\
+
+\item Reliability Testing:\\
+Load testing - We used load testing to test the system under various loads. The workstation o which testing was performed consisted of a 2.5 GHz quad-core machine with 8 GB of main memory and Ubuntu platform.\\\\
+
+\newpage
+To this system varying loads were provided to check performance of the system.\\
+\begin{table}[!htbp]
+	\begin{center}
+		%\def\arraystretch{1.5}
+		\def\arraystretch{1.5}
+		\begin{tabularx}{\textwidth}{|X|c|}
+			\hline 
+			Input	& Time taken to execute \\ \hline
+			5-10 sentences. & 2-3 seconds. \\ \hline
+			1 page. & About 15 seconds. \\ \hline
+			10-15 pages. & About 3 minutes. \\ \hline
+			A novel of about 300 pages. & About 1 hour 5 minutes. \\ \hline
+			3-4 instances of our software running at the same time. & Sometimes system gets hung up. \\ \hline
+		\end{tabularx}
+	\end{center}
+	\label{tab:testcases}
+\end{table}
+\end{enumerate}
+\chapter{Information of Project Group Members}
+\newpage
+
+\begin{center}
+\includegraphics[width=60pt]{pranjal.jpg}
+\end{center}
+\begin{enumerate}
+\item Name :  Pranjal Bhor\hspace{90 mm}
+\item Date of Birth : Oct. 24th, 1994
+\item Gender : Male
+\item Permanent Address : Samartha housing society, shirsath mala, Savedi, Ahmednagar.
+\item E-Mail : psmlbhor@gmail.com	
+\item Mobile/Contact No. : +918698652268
+\item Placement Details : Veritas Software
+\end{enumerate}
+
+\newpage
+
+\begin{center}
+	\includegraphics[width=60pt]{vaibhav.jpg}
+\end{center}
+\begin{enumerate}
+	\item Name :  Vaibhav Chaudhari\hspace{90 mm}
+	\item Date of Birth : April 24th, 1995
+	\item Gender : Male
+	\item Permanent Address : "Mruduprakash", Plot No. 19, Samartha Colony, near M.J. College,Jalgaon.
+	\item E-Mail : vcvaibhav14@gmail.com	
+	\item Mobile/Contact No. : +919403934320
+	\item Placement Details : Tech Racers
+\end{enumerate}
+
+\newpage
+
+\begin{center}
+	\includegraphics[width=60pt]{prathamesh.jpg}
+\end{center}
+\begin{enumerate}
+	\item Name :  Prathamesh Dharangutte\hspace{90 mm}
+	\item Date of Birth : May 5th, 1995
+	\item Gender : Male
+	\item Permanent Address : 13/357/1, Sona clinic, behind D-Mart, Datar mala, Kadapure Tal, Ichalkaranji. 
+	\item E-Mail : pratham.d192@gmail.com	
+	\item Mobile/Contact No. : +917588263102
+	\item Placement Details : HSBC
+\end{enumerate}
+
+\newpage
+
+\begin{center}
+	\includegraphics[width=60pt]{murtaza.jpg}
+\end{center}
+\begin{enumerate}
+	\item Name :  Murtaza Raja\hspace{90 mm}
+	\item Date of Birth : Jan. 15th, 1995
+	\item Gender : Male
+	\item Permanent Address : 102/A zainy bldg, shehabi colony, rustampura, nr. police chowky, Surat 395002
+	\item E-Mail : murt.raja@gmail.com	
+	\item Mobile/Contact No. : +918412806426
+	\item Placement Details : -
+\end{enumerate}
+
+\end{appendices}
+
+
+\end{document}
