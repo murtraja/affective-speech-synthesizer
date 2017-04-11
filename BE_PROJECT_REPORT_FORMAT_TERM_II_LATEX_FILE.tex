@@ -13,6 +13,14 @@
 \usepackage{enumerate}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{units}
+\usepackage{ifthen}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{amsmath,graphicx}
+\usepackage{natbib}
+\usepackage{amsmath} % need for subequations
+\usepackage{hyperref} % use for hypertext links, including
 \fancypagestyle{plain}{%
   \fancyhf{}
   \fancyfoot[CE]{Pune Institute of Computer Technology, Department of Computer Engineering 2016-17}
@@ -42,6 +50,9 @@
 \usepackage{float}
 \usepackage{subcaption}
 \usepackage{multirow}
+\def\x{{\mathbf x}}
+\def\L{{\cal L}}
+
 
 %\usepackage[ruled,vlined]{algorithm2e}
 
@@ -342,13 +353,75 @@ X = set of input\\
 Y = set of output\\
 \hspace*{5pt} = \{speech with emotions\}\\
 $F_{me}$ = set of functions\\
-\hspace*{5pt} = $\{F_{ip}, F_{ml}, F_{clas.}, F_{s/p}, F_{op}\}$\\
+\hspace*{5pt} = $\{F_{ip}, F_{ml}, F_{clas.}, F_{s/p}, F_{op}, F_{1}, F_{2}, F_{3}\}$\\
 where,\\
 $F_{ip}$ = Function to take input X\\
 $F_{ml}$ = Function to train the classifier using Machine Learning\\
 $F_{clas.}$ = Function to classify the input text\\
 $F_{s/p}$ = Function to synthesize the audio using Hidden Markov Model\\
 $F_{op}$ = Function to write the output speech file\\\\
+$F_{1}$ = Get emotion using Naive Bayes Classifier\\
+\\Naive Bayes classifiers are a family of simple probabilistic classifiers based on applying Bayes' theorem.
+As a general statement, we can state Bayes' theorem as follows\\
+
+\begin{equation}
+\label{eq:bayes}
+P(\omega_j|x) = \frac{p(x|\omega_j) \cdot P(\omega_j)}{p(x)}
+\end{equation}\\
+
+The data is represented by \textbf{x} and labels are represented by $\omega_j$.\\\\
+$F_{2}$ = Get emotions using LSTM classifier\\
+RNNs maintain a hidden vector $\mathbf h$, which is updated at time step $t$ as follows:
+
+\begin{equation}
+\mathbf h_t = \tanh(\mathbf W * \mathbf h_{t-1} + \mathbf I * \x_t)
+\end{equation}
+
+where $\tanh$ is the hyperbolic tangent function, $\mathbf W$ is the recurrent weight matrix and $I$ is a projection matrix. The hidden state $\mathbf h$ is then used to make a prediction
+
+\begin{equation}
+\mathbf y_t = \text{softmax}(\mathbf W * \mathbf h_{t-1})
+\end{equation}
+
+where $\textit{softmax}$ provides a normalized probability distribution over the possible classes and $\mathbf W$ is a weight matrix.
+
+
+Training vanilla RNNs is known to be particularly difficult.
+
+LSTMs address the problems commonly found in training RNNs by incorporating gating functions into their state dynamics . At each time step, an LSTM maintains a hidden vector $\mathbf h$ and a memory vector $\mathbf m$  responsible for controlling state updates and outputs. More concretely, we define the computation at time step $t$ as follows :
+
+\begin{equation}
+\begin{split}
+& \mathbf g^u = \sigma(\mathbf W^u * \mathbf h_{t-1} + \mathbf I^u * \x_t) \\
+& \mathbf g^f = \sigma(\mathbf W^f * \mathbf h_{t-1} + \mathbf I^f * \x_t) \\
+& \mathbf g^o = \sigma(\mathbf W^o * \mathbf h_{t-1} + \mathbf I^o * \x_t) \\
+& \mathbf g^c = \tanh(\mathbf W^c * \mathbf h_{t-1} + \mathbf I^c * \x_t) \\
+& \mathbf m_t = \mathbf g^f \odot \mathbf +  \mathbf g^u \odot \mathbf g^c \\
+& \mathbf h_t = \tanh(\mathbf g^o \odot \mathbf m_{t-1}) 
+\end{split}
+\end{equation}
+$F_{3}$ = Function to generate audio using Hidden Markove Model
+The task is to compute in a best way, given the parameters of the model, the probability of a particular output sequence. This requires summation over all possible state sequences.The probability of observing a sequence:\
+
+\begin{equation}
+Y = y(0),y(1),...,y(L-1)
+\end{equation}
+
+of length L is given by\
+
+\begin{equation}
+P(Y) = \displaystyle\sum_{X} P(Y|X)P(X),
+\end{equation}
+
+where the sum runs over all possible hidden-node sequences\
+
+\begin{equation}
+X = x(0),x(1),...x(L-1)
+\end{equation}
+
+
+here $\sigma$ is the logistic sigmoid function, $\mathbf W^u, \mathbf W^f, \mathbf W^o, \mathbf W^c$ are recurrent weight matrices and $\mathbf I^u, \mathbf I^f, \mathbf I^o, \mathbf I^c$ are projection matrices.
+\\
 DD = Deterministic Data\\
 \hspace*{20pt}= $\phi$ \\
 NDD = Non Deterministic Data\\
@@ -1333,6 +1406,41 @@ After the emotions are predicted from the sentences, the user clicks on speak bu
   		\label{fig:Affective Audio playing screen}
   	\end{figure}
   \end{center} 
+
+\newpage
+\section{Accuracy of the Predictions}
+\subsection{Theory of Precision, recall and F1-score}
+Precision ($P$) is defined as the number of true positives ($T_p$) over the number of true positives plus the number of false positives ($F_p$).\\\\
+\begin{equation}
+\mathbf P = \frac{\mathbf T_p}{\mathbf{T_p + F_p}} \\\\
+\end{equation}
+\\\\Recall ($R$) is defined as the number of true positives ($T_p$) over the number of true positives plus the number of false negatives ($F_n$).
+\begin{equation}
+\mathbf R = \frac{\mathbf T_p}{\mathbf{T_p + F_n}} \\
+\end{equation}
+\\\\These quantities are also related to the ($F_1$) score, which is defined as the harmonic mean of precision and recall.
+\begin{equation}
+\mathbf F_1 = 2*\frac{\mathbf {P*R}}{\mathbf{P+R}} \\
+\end{equation}
+\\\\The respective precision, recall and F1 scores of the classifiers used in our project are shown in the figures below (attached as screenshots).
+\newpage
+\subsection{Precision, recall and F1 score for Naive Bayes Classifier}
+\begin{center}
+	\begin{figure}[!htbp]
+		\fbox{\includegraphics[width=350pt,height=180pt]{NB.png}}
+		\caption{Screenshot of precision, recall and F1 of Naive Bayes}
+		\label{fig:precision, recall and F1 of Naive Bayes}
+	\end{figure}
+\end{center} 
+\subsection{Precision, recall and F1 score for LSTM classifier}
+\begin{center}
+	\begin{figure}[!htbp]
+		\fbox{\includegraphics[width=350pt,height=180pt]{LSTM.png}}
+		\caption{Screenshot of precision, recall and F1 of LSTM}
+		\label{fig:precision, recall and F1 of LSTM}
+	\end{figure}
+\end{center} 
+
 
 \chapter{Deployment and Maintenance}
      \section{Installation and un-installation}
