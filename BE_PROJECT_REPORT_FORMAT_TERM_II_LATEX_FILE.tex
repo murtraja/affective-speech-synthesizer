@@ -16,6 +16,11 @@
 \usepackage{units}
 \usepackage{ifthen}
 \usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{lscape}
+\usepackage{rotating}
+\usepackage{epstopdf}
 \usetikzlibrary{calc}
 \usepackage{amsmath,graphicx}
 \usepackage{natbib}
@@ -548,7 +553,7 @@ The project group members are avid readers. We usually read novels and articles 
 	for classification of emotion and speech synthesis. It presents a Text-to-speech engine which identifies emotions from text
 	using a Machine Learning classifier. Then a voice is synthesized using Hidden Markov Modelling technique [2]. The voice is modified
 	using various emotions' characteristics classified using Self-Organizing Maps (SOM).\\\\
-
+		
 
 \chapter{Problem Definition and scope}
 \section{Problem Statement}
@@ -884,7 +889,7 @@ Following are the details for each risk.
 \subsection{Task network}  
 \vspace*{1\baselineskip}
 \includegraphics[width=400pt]{task_network.png}
-\subsection{Timeline Chart}  
+\subsection{Timeline Chart}
 \includegraphics[height=300pt,width=480pt]{gantt_chart.png}
 
  
@@ -1095,7 +1100,7 @@ Input data is stored in plain English text files or PDF files. Internally there 
  \begin{center}
 	\begin{figure}[!htbp]
 		\centering
-		\fbox{\includegraphics[width=450pt]{class_diagram.png}}
+		\fbox{\includegraphics[scale=0.35]{class-diag.png}}
 	  \caption{Class Diagram}
 	  \label{fig:class-dig}
 	\end{figure}
@@ -1213,7 +1218,7 @@ Input data is stored in plain English text files or PDF files. Internally there 
 		\begin{algorithmic}
 			\algrestore{myalg}
 			
-			\State emotion\_dictionary $\leftarrow$ \{'neutral':0,'joy':0,'sadness':0,'surprise':0,'anger':0\}
+			\State emotion\_dictionary $\leftarrow$ \{`neutral':0,`joy':0,`sadness':0,`surprise':0,`anger':0\}
 			\State dependency\_tree = StanfordParser(sentence)
 			\State get\_index $\leftarrow$ 0
 			\State Indices $\leftarrow$ $\phi$
@@ -1221,7 +1226,7 @@ Input data is stored in plain English text files or PDF files. Internally there 
 			\State emotion\_dictionary\lbrack word\_dictionary[word]\rbrack += 20
 			\State get\_index $\leftarrow$ find\_max\_qualified\_word(dependency\_tree)
 			\For {$i$ = 0 and $i$<length(dependency\_tree)}
-			\If {dependency\_tree[$i$].description is 'amod' or 'advmod'}
+			\If {dependency\_tree[$i$].description is `amod' or `advmod'}
 			\If {dependency\_tree[$i$].head = get\_index}
 			\If {dependency\_tree[$i$].form in strong\_qual\_words}
 			\State emotion\_dictionary\lbrack word\_dictionary[word]\rbrack += 100
@@ -1237,14 +1242,14 @@ Input data is stored in plain English text files or PDF files. Internally there 
 			\If {negation present in the sentence}
 			\If {the negation word qualifies an index in Indices}
 			\If {max\_emotion\_value $\>$ 20}
-			\State answer\_emotion $\leftarrow$ 'neutral'
+			\State answer\_emotion $\leftarrow$ `neutral'
 			\ElsIf {max\_emotion\_value == 20}
-			\If {answer\_emotion == 'joy'}
-			\State answer\_emotion $\leftarrow$ 'sadness'
-			\ElsIf {answer\_emotion == 'sadness'}
-			\State answer\_emotion $\leftarrow$ 'joy'
+			\If {answer\_emotion == `joy'}
+			\State answer\_emotion $\leftarrow$ `sadness'
+			\ElsIf {answer\_emotion == `sadness'}
+			\State answer\_emotion $\leftarrow$ `joy'
 			\Else
-			\State answer\_emotion $\leftarrow$ 'neutral'
+			\State answer\_emotion $\leftarrow$ `neutral'
 			\EndIf
 			\EndIf
 			\EndIf
