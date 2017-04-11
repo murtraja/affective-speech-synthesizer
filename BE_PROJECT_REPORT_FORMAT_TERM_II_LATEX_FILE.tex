@@ -956,9 +956,9 @@ There are no design constraints which will impact the subsystem. The software co
 
 \chapter{Detailed Design Document using Appendix A and B}
  \section{Introduction}  
-This document specifies the design that is used to solve the problem of Product.  
+ Architechture design gives an overview of the software system. The architechture consists of and Emotion Detection and Signal Processing (EDSP) engine. The EDSP engine consists of emotion classifier which includes Navie Bayes and Long Short Term Memory (LSTM) classifiers. It also includes Text-to-Speech generation engine and signal processing engine which modifies the neutral voice output into affective voice output.
 \section{Architectural Design}  
-	A description of the program architecture is presented.
+
 
  
   \begin{center}
@@ -971,8 +971,8 @@ This document specifies the design that is used to solve the problem of Product.
 \end{center} 
 
 
-\section{Data design (using Appendices A and B)}   
-A description of all data structures including internal, global, and temporary data structures, database design (tables), file formats.
+\section{Data design (using Appendices A and B)}
+The internal and global software data structures have been presented below.
 \subsection{Internal software data structure}
 Multi-dimensional arrays\\\\
 This data structure is used to store the machine learning classifier data. The classifier learns the data and maps it with the output. This mapping is stored in multi-dimensional arrays.\\\\
@@ -1028,6 +1028,7 @@ Input data is stored in plain English text files or PDF files. Internally there 
 	  		\State return save\ audio(affective audio)
 	  		\EndProcedure
 	  	\end{algorithmic}
+	  	\bigskip
 	  	\begin{algorithmic}[1]
 	  		\Procedure{sentence\_handler}{sentence}
 	  		\State final\_audio = $\phi$
@@ -1339,7 +1340,28 @@ After the emotions are predicted from the sentences, the user clicks on speak bu
      	\item Delete the project source code
      \end{enumerate}
  \chapter{Conclusion and future scope}
-This project deals with the synthesis of expressive audio from the text. In this project we predict the emotion associated with a sentence and then generate audio corresponding to that audio and the sentence. The accuracy of the emotion prediction module is very important aspect in this process. Present techniques for emotion detection are not very accurate. So there is a tremendous scope for improvement in emotion detection. Currently, the system cannot effectively identify emotions of the sentences which contains words like 'rather' and 'but'. Some mechanism can be derived to handle such types of sentences. Building voices of characters according to their age, gender, background and other characteristics can be done using this project in the future.
+We developed a software that converts input text to its appropriate expressive speech.
+Two main modules namely emotion classifier and speech synthesis are present in our system.
+For emotion classification we worked with various techniques like Naive Bayes Classifier,
+SVM and LSTM. We observed that each technique has its ups and downs and there is no clear
+winner. Each technique is well suited for certain constructs of a sentence but may not work
+so well with other constructs. The accuracy of emotion classification is also an important aspect
+in this process. The accuracy of our Naive Bayes Classifier is about 78\% and LSTM classifier is
+about 81\%.One major requirement for the accurate prediction is the availability of a large, well formed
+and diverse dataset with high attribute accuracy. Improving the quality of the available dataset in the future
+and increasing the training examples will certainly improve the accuracy of emotion prediction.\\\\
+Currently our system classifies the input text into only 5 emotions viz. joy,sadness,anger,surprise
+and neutral. But there are many subtleties in English language like sarcasm which cannot be correctly
+classified by present algorithms. The future work can include creating dataset and algorithms to identify more than above mentioned 5 emotions which can include fear, anger and disgust.\\\\
+In our project we consider only one sentence at a time. The
+context of a paragraph or section is not taken into consideration. Also, the association or dependency of the speaker with the text is not considered. The future work can be done in this direction so as to identify the context of the paragraph and associativity of the speaker with the words he or she is speaking. This will certainly make the system Artificially Intelligent in audio generation.\\\\
+At present our system only supports
+English language and only American accent due to the limitation of the audio dataset. In the future, dataset of Indian voice actors can be created and the Hidden Markov Model can be trained on it so as to create the voice with Indian accent. Similarly, audio can be recorded in any Indian regional language and its model can be trained so that the system can support languages other than English.\\\\
+Furthermore, we generate expressive speech for joy,anger,sadness,surprise and neutral emotions but
+we do not consider their intensities. The future work can be directed in the direction of modifying neutral speech into expressive speech along with varying
+intensity depending on the context in which it is written.\\\\
+One of the import limitations of our project includes that we consider only one domninant emotion in the sentence containing multiple emotions. An algorithm for the same can be developed in the future for synthesizing speech with multiple emotions such that all the emotions are perfectly incorporated in the audio.\\\\
+The audio of the emotion anger produced by the system is not upto the mark of idenfication by a human listener. This is the limitation can be overcome in future by improving the anger audio synthesis parameters of MaryTTS engines. 
 
 % \bibliographystyle{plain}
 
