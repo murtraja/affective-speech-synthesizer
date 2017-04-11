@@ -521,28 +521,33 @@ To create a software program, which will take English language text as input and
 The project group members are avid readers. We usually read novels and articles from various different sources. When we tried to use Adobe PDF reader's inbuilt 'read-out-aloud' feature for listening to the novel, we realized that it was highly monotonous and robotic in nature. This type of text-to-speech is unsuitable for listening to novels which are quite rich with different types of emotions. We then used some other text-to-speech engines like IvonaTTS, Jovie and KMouth (of Okular PDF reader). But the results were similar as that of Adobe PDF reader. Then we tried some other text-to-speech engines like MaryTTS and PSOLA. They have some ability to handle emotional audio synthesis, but they lack emotion detection facility. This inspired us to build a system which will first try to identify emotion associated with English text and then try to speak the sentences with emotions associated with it.
 
 \section{Literature Survey}
-\begin{enumerate}
-	\item[\lbrack1\rbrack] Vanmassenhove, Eva, João P. Cabral, and Fasih Haider. "Prediction of emotions from text using sentiment analysis for expressive speech synthesis." 9th ISCA Speech Synthesis Workshop, Sunnyvale, USA, Septemper. 2016. \\\\
-		 This paper presents a Text-to-speech engine which identifies emotions from text using a Machine Learning classifier. Then a voice is synthesized using Hidden Markov Modelling technique. The voice is modified using various emotions' characteristics classified using Self-Organizing Maps (SOM). The authors clain that it gives fairly good results in novels and fairy tales reading.
-	\item[\lbrack2\rbrack] Perikos, Isidoros, and Ioannis Hatzilygeroudis. "Recognizing emotions in text using ensemble of classifiers." Engineering Applications of Artificial Intelligence 51 (2016): 191-201\\\\
-	 This project extensively focusses on identifying emotions from English text. The authors have developed 2 classifiers, one Naive-Bayes and other is Max-entropy, for identification of emotions. Also, they have used Stanford Parser's Universal dependency for identifying sentence construction and then predicting the emotions. These three emotion prediction sub-systems then vote on the emotions they have retrieved and the emotion which gets maximum votes is selected as the overall emotion of the sentence.
-	\item[\lbrack3\rbrack] Bowles Tristan, and Sandra Pauletto. "Emotions in the voice: humanising a robotic voice." Proceedings of the 7th Sound and Music Computing Conference, Barcelona, Spain. 2010\\\\
-	The focus of this project is the manipulation of a robotic	voice signal for the purpose of adding emotional expression. In particular, its main aim was to design the emotion expressed by a robotic voice by manipulating specific acoustic parameters such as pitch, amplitude and speech rate. The three basic emotions considered were: anger, happiness and sadness.
-		The technique of manipulating the accoustic parameters used in this paper will be helpful to implement the speech processing engine in our project. 
-	\item[\lbrack4\rbrack] Pierre-Yves Oudeyer. “The production and recognition of emotions in speech: features and algorithms.” International Journal of Human-Computer Studies, 2003\\\\
-	 This paper presents algorithms that allows a robot to express its emotions by modulating the
-		intonation of its voice. It describes a technique which allows to
-		continuously control both the age of a synthetic voice and the quantity of emotions that
-		are expressed. Also, it presents the first large-scale data mining experiment about the
-		automatic recognition of basic emotions in informal everyday short utterances. Its primary focused on
-		the speaker-dependent problem.	
-	\item[\lbrack5\rbrack] Sriram, S., \& Yuan, X. (2012, March). An enhanced approach for classifying emotions using customized decision tree algorithm. In Southeastcon, 2012 Proceedings of IEEE (pp. 1-6). IEEE.\\\\
-	 In this paper a simple and memory optimized way for classifying emotions is discussed using customized decision tree.They have modified the already existing  Digg dataset and SemEval Affective Text-2007 by adding a new feature,emotion intensity.
-	\item[\lbrack6\rbrack] Yong-Soo   seol,   Dong-Joo   Kim   and   Han-Woo   Kim,   "Emotion Recognition from Text using Knowledge-based ANN ", The 23'd International  Technical Conference  on Circuit/Systems, Computers and Communications. (lTS-CSCC-2008).\\\\
-	 Yong-Soo Seol gives a hybrid method by incorporating knowledge-based method and machine learning method using artificial neural network for emotion detection.
-	\item[\lbrack7\rbrack] Hsieh, Y. L., Liu, S. H., Chang, Y. C., \& Hsu, W. L. (2015, August). Neural Network-based Vector Representation of Documents for Reader-Emotion Categorization. In Information Reuse and Integration (IRI), 2015 IEEE International Conference on (pp. 569-573). IEEE.\\\\
-	 In this paper emotion categorization using word embeddings is discussed on Chinese news corpus. Word embeddings can capture semantic context and can be used to infer similarity between words. This approach requires very little feature engineering and yields substantial success.
-\end{enumerate}
+
+	Emotion in speech synthesis is an important aspect as it makes the speech more natural sounding and may
+	help to convey more information about context apart from just neutral speech [1].
+	The focus of this paper is the manipulation of a robotic voice signal for the purpose of adding emotional
+	expression. In particular, its main aim was to design the emotion expressed by a robotic voice by manipulating
+	specific acoustic parameters such as pitch, amplitude and speech rate. The three basic emotions considered were:
+	anger, happiness and sadness.\\\\
+	There are two main aspects of our project i.e emotion classification and modification of neutral speech according to
+	the identified emotion [1]. [2] extensively focuses on identifying emotions from English text. The authors have
+	developed 2 classifiers, one Naive-Bayes and other is Max-entropy, for identification of emotions. Also, they have
+	used Stanford Parser's Universal dependency for identifying sentence construction and then predicting
+	the emotions. These three emotion prediction sub-systems then vote on the emotions they have retrieved
+	and the emotion which gets maximum votes is selected as the overall emotion of the sentence.The approach for emotion classification used in [2] provided good results.\\\\
+	Researchers in [3] improve upon [2] by providing a
+	simple and memory optimized way for classifying emotions using customized decision tree.
+	They have modified the already existing Digg dataset and SemEval Affective Text-2007 by adding a new feature, emotion intensity. [4] provided us with a novel way of vector representation. It discusses emotion categorization using word embeddings is discussed on Chinese news corpus. Word embeddings can capture semantic context and can be used to infer similarity between words. This
+	approach requires very little feature engineering and yields substantial success. This increases the efficiency of emotion prediction
+	in [3].\\\\
+	The other main module of our system is modifying the neutral speech waveform according to the predicted emotion. We first worked with
+	formant synthesis in which various parameters of speech like f0, intensity, pitch etc are modified to obtain desired emotion [6].
+	This paper presents algorithms that allows a robot to express its emotions by modulating the intonation of its voice. It describes a technique
+	which allows to continuously control both the age of a synthetic voice and the quantity of emotions that are expressed.\\\\
+	A system for emotion dectection and affective audio synthesis is presented in [6]. The formant synthesis technique did not provide satisfactory results for
+	speech synthesis as discussed in [6] and [10]. All the papers before this dealt with a particular aspect of this project. This paper provides an integrated approach
+	for classification of emotion and speech synthesis. It presents a Text-to-speech engine which identifies emotions from text
+	using a Machine Learning classifier. Then a voice is synthesized using Hidden Markov Modelling technique [2]. The voice is modified
+	using various emotions' characteristics classified using Self-Organizing Maps (SOM).\\\\
 
 
 \chapter{Problem Definition and scope}
@@ -565,11 +570,27 @@ There are two objectives associated with our project. First objective is to iden
  The accent of the voice output of our system is US English. This is due to the dataset which we have used (CMU's Arctic voice dataset) to train the voice synthesis module.
  
 \section{Methodologies of Problem solving and efficiency issues}
- Naive Bayes classification\\
- Naive Bayes requires a small number of training data to estimate the parameters necessary for classification.\\\\\\\\
-LSTM classification\\ A LSTM network is universal in the sense that given enough network units it can compute anything a conventional computer can compute, provided it has the proper weight matrix, which may be viewed as its program.\\\\
-Support vector machines\\ It can efficiently perform a non-linear classification by implicitly mapping their inputs into high-dimensional feature spaces.\\\\
-HMM-based synthesis In this system , the frequency spectrum (vocal tract), fundamental frequency and duration of speech are modeled simultaneously by Hidden Markov Models.
+ \subsection{Emotion classification}
+	 In order to efficiently and accurately extract emotions from the input text, we extensively tried and used several techniques out of which the selected ones are discussed below.
+	 \subsubsection{Natural Language Processing (NLP)}
+	 This method involves understanding the English language, its subtleties, grammar, word synonyms, structure of sentences and efficiently processing each word so as to get the required output. This methology uses Stanford Parser[15][16] to create an Universal Dependency tree. This helps us in identifying dependency of words on each other. Part-of-speech (POS) of each word is identified using Tree Tagger Tool[16]. Emotion of each word is identified using NRC lexicon[12] word set which contains about 14000 words tagged with their emotions. We have used the $python-nltk$ package for the same.
+	 
+	 \subsubsection{Long Short Term Memory (LSTM) }
+	 A LSTM network is an artificial neural network that contains LSTM units instead of, or in addition to, other network units. A LSTM unit is a recurrent network unit that excels at remembering values for either long or short durations of time. The key to this ability is that it uses no activation function within its recurrent components. Thus, the stored value is not iteratively squashed over time, and the gradient or blame term does not tend to vanish when Backpropagation through time is applied to train it which helps in our case.
+	 It efficiently identifies the structure of the sentences giving more accurate results than traditional neural networks for our dataset. We have used $sklearn$ and $keras$ python packages for training LSTM.
+	 
+	 %\newpage
+	 \subsubsection{Naive Bayes}
+	 Naive Bayes is a simple technique for constructing classifiers: models that assign class labels to problem instances, represented as vectors of feature values, where the class labels are drawn from some finite set. In our case the class labels were the emotions. It is not a single algorithm for training such classifiers, but a family of algorithms based on a common principle: all naive Bayes classifiers assume that the value of a particular feature is independent of the value of any other feature, given the class variable which can be assumed safely for our work since we are working on independent sentences without considering the context in which the sentence appears. We have used $sklearn$ python package for this classifier.
+	 
+	\subsection{Affective Speech Synthesis}
+	In order to efficiently and accurately synthesize affective audio from emotion-tagged sentences, we extensively tried and used several techniques out of which the selected ones are discussed below.
+	\subsubsection{Hidden Markov Modelling (HMM)}
+	A hidden Markov model (HMM) is a finite state machine which generates a sequence of discrete time observations. At each time unit, the HMM changes states at Markov process in accordance with a state transition probability,
+	and then generates observational data \textbf{o} in accordance with an output probability distribution of the current state. We have used HTS [11], a tool to create voice synthesis module using HMM technique. In our case, the state transition probabilities depend upon the change of phonemes for the given word. We have used $festival$ and $MaryTTS$ speech building modules for synthesizing the voice after training it with the arctic dataset provided by Carnegie Mellon University (CMU)[14].
+	
+	\subsubsection{Digital Signal Processing (DSP)}
+	HMM module generates speech in neutral affect, so in order to generate affective waveform from the neutral audio, we require signal processing modules that are provided by $MaryTTS$ signal processing libraries[13] which are open source. These libraries include the latest research available in the field of affective audio generation and it is continuously updated with the state-of-the-art techniques in DSP.
 
 
 
@@ -581,6 +602,7 @@ These days, the publisher not only publishes a printed version of the book but a
 There are many PDF readers available which lack the emotional speech output producing capability for the novels and story books. These PDF readers can integrate our project by using an Application Programming Interface (API) and can effectively produce affective speech output.\\\\
 Robots, these days, are now capable of speaking sentences in different languages. But their output is monotonous and devoid of any emotion. Our project's API can be used in the robots to eradicate this problem and thus, can help to make robots sound more human-like.
 
+\newpage
 \section{Hardware Resources Required}
 Our project requires following hardware resources to run smoothly and successfully 
 \begin{table}[!htbp]
@@ -603,7 +625,7 @@ Our project requires following hardware resources to run smoothly and successful
 	
 \end{table}
 
-
+\newpage
 \section{Software Resources Required}
 Our project requires following software resources to run smoothly and successfully
 \begin{table}[!htbp]
@@ -1516,6 +1538,23 @@ The audio of the emotion anger produced by the system is not upto the mark of id
 	\item[\lbrack9\rbrack] Christiane Fellbaum, Ed. 1998. WordNet: An Electronic Lexical Database. MIT 	Press, Cambridge, Mass. 
 	
 	\item[\lbrack10\rbrack] Chaffar, Soumaya, and Diana Inkpen. "Using a heterogeneous dataset for 	emotion analysis in text." Canadian Conference on Artificial Intelligence. Springer 	Berlin Heidelberg, 2011.
+	
+	\item[\lbrack11\rbrack] Yamagishi, Junichi. "An introduction to hmm-based speech synthesis." Technical Report (2006).
+	
+	\item[\lbrack12\rbrack] Mohammad, Saif M., and Peter D. Turney. "Crowdsourcing a word–emotion association lexicon." Computational Intelligence 29.3 (2013): 436-465.
+	
+	\item[\lbrack13\rbrack] Marc Schr ̈oder, Marcela Charfuelan, Sathish Pammi, Ingmar Steiner. Open source voice cre-
+	ation toolkit for the MARY TTS Platform. 12th Annual Conference of the International Speech
+	Communication Association - Interspeech 2011, Aug 2011, Florence, Italy. ISCA, pp.3253-3256,
+	2011. $<$hal-00661061$>$
+	
+	\item[\lbrack14\rbrack] Kominek, John, Alan W. Black, and Ver Ver. "CMU ARCTIC databases for speech synthesis." (2003).
+	
+	\item[\lbrack15\rbrack] Danqi Chen and Christopher D Manning. 2014. A Fast and Accurate Dependency Parser using Neural Networks. Proceedings of EMNLP 2014
+	
+	\item[\lbrack15\rbrack] Dan Klein and Christopher D. Manning. 2003. Accurate Unlexicalized Parsing. Proceedings of the 41st Meeting of the Association for Computational Linguistics, pp. 423-430. 
+	
+	\item[\lbrack16\rbrack] Schmid, Helmut. "Probabilistic part-oﬁspeech tagging using decision trees." New methods in language processing. Routledge, 2013.
 \end{itemize}
 
 % \chapter{ALGORITHMIC DESIGN}
