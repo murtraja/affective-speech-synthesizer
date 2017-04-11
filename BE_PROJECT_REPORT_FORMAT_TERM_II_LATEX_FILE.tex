@@ -800,7 +800,7 @@ The team structure for the project is identified. Roles are defined.
 	\item[] Pranjal Bhor: Multi-threaded execution of the system and NLP emotion classifier developer.
 	\item[] Vaibhav Chaudhari: Speech Synthesis System and signal processing developer.
 	\item[] Prathamesh Dharangutte: Developer of Machine Learning based emotion classifier.
-	\item[] Murtuza Raja: UI and NLP based emotion classifier developer.
+	\item[] Murtaza Raja: UI and NLP based emotion classifier developer.
 \end{itemize}
 
 \subsection{Management reporting and communication}
@@ -1060,7 +1060,7 @@ Input data is stored in plain English text files or PDF files. Internally there 
 		\label{LSTM}
 		\begin{algorithmic}[1]
 			\Procedure{get\_emotion\_from\_lstm}{sentence}
-			\State classifier $\leftarrow$ load\_naive\_classifier()
+			\State classifier $\leftarrow$ load\_lstm\_classifier()
 			\State emotion $\leftarrow$ classifier.classify(sentence)
 			\State return emotion
 			\EndProcedure
