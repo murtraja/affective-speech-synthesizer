@@ -4,11 +4,12 @@ import PyQt4
 import sys
 import textract
 from cStringIO import StringIO
-import emossifier
+#import emossifier
 import get_voice as gv
 import play_voice as pv
 import time
 import os
+import socket
 
 class GUI(QtGui.QWidget):
     def __init__(self):
@@ -18,7 +19,6 @@ class GUI(QtGui.QWidget):
         self.ispdf = False
         self.is_second_loaded = False
         self.is_third_loaded = False
-        
         
     def initGUI(self):
         '''
@@ -61,7 +61,7 @@ class GUI(QtGui.QWidget):
         This project was motivated by the fact that the
         pdf readers read the text in a monotonous way
         and no emotion value is attached to it.
-        This small project tries to not only identify
+        This project tries to not only identify
         the underlying emotions for the input text, but
         also it speaks it in that way!
         ''')
@@ -83,7 +83,7 @@ class GUI(QtGui.QWidget):
         
         self.setLayout(self.main_layout)
         self.setWindowTitle("Affective Speech Synthesizer")
-        self.setGeometry(600, 200, 100,100)
+        self.setGeometry(600, 100, 100,100)
         #self.setFixedSize(730, 300)
         self.show()
 
@@ -124,7 +124,7 @@ class GUI(QtGui.QWidget):
         subwidget_sentence_emotion.setLayout(main_layout)
         self.widget_sentence_emotion.setWidget(subwidget_sentence_emotion)
         self.widget_sentence_emotion.setWidgetResizable(True)
-        self.widget_sentence_emotion.setMinimumHeight(600)
+        self.widget_sentence_emotion.setMinimumHeight(440)
         # self.widget_sentence_emotion = subwidget_sentence_emotion
 
 
@@ -345,7 +345,8 @@ class GUI(QtGui.QWidget):
             self.ispdf = False
             fd = open(str(self.file_name))
             data = fd.read()
-
+        
+        #content = data.split('\n')      
         emossifier.get_emotions_from_content(data, False)
 
         self.addSecondCompartment()

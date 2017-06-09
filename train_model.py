@@ -74,25 +74,26 @@ def preprocess(data,target):
 	#idf = vectorizer.vocabulary_
 	#print dict(zip(vectorizer.get_feature_names(), idf))
 	
-	with open('vectorizer/vectorizer.pkl', 'wb') as fin:
+	with open('vectorizer/vectorizer_temp.pkl', 'wb') as fin:
 		pickle.dump(vectorizer, fin)
-
+  
 	return transformed_data, target
 
 
 def learn_model(data,target):
 
 	#print data
-	data_train,data_test,target_train,target_test = cross_validation.train_test_split(data,target,test_size=0.20,random_state=0)
+	data_train,data_test,target_train,target_test = cross_validation.train_test_split(data,target,test_size=0.20,random_state=15)
 	print len(target_train)
 	print "*********************************************************************************"
 	print len(target_test)
-	classifier = RandomForestClassifier().fit(data_train,target_train)
-	joblib.dump(classifier, 'classifiers/tfidf_nb.pkl')
+	classifier = MultinomialNB().fit(data_train,target_train)
+	return classifier
+	#joblib.dump(classifier, 'classifiers/tfidf_nb.pkl')
 	
-	predicted = classifier.predict(data_test)
+	#predicted = classifier.predict(data_test)
 	
-	evaluate_model(target_test,predicted)
+	#evaluate_model(target_test,predicted)
 	'''
 	model = RandomForestClassifier(n_estimators=100)
 	#Simple K-Fold cross validation. 10 folds.
@@ -122,4 +123,9 @@ if __name__ == "__main__":
 
 	data, target = load_files()
 	features, labels = preprocess(data,target)
-	learn_model(features,labels)
+	model = learn_model(features,labels)
+	vec = pickle.load(open('vectorizer/vectorizer_temp.pkl', 'rb'))
+	while True:
+	  sentence = raw_input("msg: ")
+	  feat = vec.transform([sentence])
+	  print (model.predict(feat))

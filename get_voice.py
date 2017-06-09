@@ -7,8 +7,8 @@ SERVER_PORT = [59125, 59126, 59127, 59128]
 OUTPUT_FILE = "output/output.wav"
 OUTPUT_SENTENCE_FILE_PREFIX = 'output/output_'
 
-EMOTIONS = ['happiness', 'sadness', 'anger', 'fear', 'disgust', 'surprise', 'neutral']      # value
-emotions_from_data = ['joy', 'sadness', 'anger', 'fear', 'disgust', 'surprise', 'neutral']  # key
+EMOTIONS = ['happiness', 'sadness', 'anger', 'surprise', 'neutral']      # value
+emotions_from_data = ['joy', 'sadness', 'anger', 'surprise', 'neutral']  # key
 emotion_mapper = {emotions_from_data[i]:EMOTIONS[i] for i in range(len(EMOTIONS))}
 
 def get_param_input_text(sentence, emotion):
